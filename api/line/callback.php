@@ -45,13 +45,13 @@ if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"!
     trim(sscanf($message_text,"!5cho%s",$command));
     list($top,$bottom) = explode('/',$command);
     echo "Generating...";
-    Generate(trim($top), trim($bottom));
+    $test = Generate(trim($top), trim($bottom));
     $img = file_get_contents(__DIR__."/../../result.png");
     $imgResult =  uploadImgur(base64_encode($img));
     $imgId = $imgResult['data']['id'];
     $response_format_text = [[
         "type" => "text",
-        "text" => $bottom
+        "text" => $test
     ],[
         "type"=> "image",
         "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
