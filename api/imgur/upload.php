@@ -5,7 +5,7 @@ uploadImgur(base64_encode($img));
 function uploadImgur($imgdata){
     echo "a";
     $client_id = 'b59a4f70000e154';
-    $pvars   = array('image' => base64_encode($imgdata));
+    $pvars   = array('image' => base64_encode($imgdata),"type" => 'base64');
     $timeout = 30;
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, 'https://api.imgur.com/3/image');
