@@ -39,13 +39,13 @@ if ($message_type == "text"){
 }
 $recieve_data = $json_object->{"events"}[0]->{"postback"}->{"data"};
 
-$message_text = "!5cho てすと/だお";
+$message_text = "!5cho THIS IS/TESTだお";
 if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"!5cho") !== FALSE)){
     //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
     trim(sscanf($message_text,"!5cho%s",$command));
     list($top,$bottom) = explode('/',$command);
     echo "Generating...";
-    Generate($top, $bottom);
+    Generate(trim($top), trim($bottom));
     $img = file_get_contents(__DIR__."/../../result.png");
     echo uploadImgur(base64_encode($img));
 
