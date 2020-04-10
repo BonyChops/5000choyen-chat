@@ -23,6 +23,7 @@ $objTwitterConection = new TwitterOAuth
  $sTwitterConsumerSecret);
  */
 //ユーザーからのメッセージ取得
+chdir(__DIR__);
 $json_string = file_get_contents('php://input');
 $json_object = json_decode($json_string);
  
