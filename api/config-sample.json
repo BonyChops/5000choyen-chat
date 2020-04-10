@@ -1,0 +1,9 @@
+{
+    "imgur":    {
+        "client_id": "***"
+    },
+    "line":     {
+        "accesstoken": "***"
+    }
+
+}
