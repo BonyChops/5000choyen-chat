@@ -1,5 +1,5 @@
 <?php
-$config = json_decode(file_get_contents("config.json") ,true);
+$config = json_decode(file_get_contents(__DIR__."/../config.json") ,true);
 $accesstoken = $config["line"]["accesstoken"];
 require_once(__DIR__.'/../../generate.php');
 require_once(__DIR__.'/../imgur/upload.php');
@@ -43,7 +43,7 @@ $message_text = "!5cho てすと/だお";
 if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"!5cho") !== FALSE)){
     //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
     trim(sscanf($message_text,"!5cho%s",$command));
-    list($top,$bottom) = explode($command, '/');
+    list($top,$bottom) = explode('/',$command);
     echo "Generating...";
     Generate($top, $bottom);
     $img = file_get_contents(__DIR__."/../../result.png");
