@@ -220,7 +220,7 @@ function saveCanvas () {
   ctx2.drawImage(canvas, 0, 0, width, canvas.height, 0, 0, width, canvas.height);
   const canvasDataUrl = canvas2.toDataURL()
   const decoded = dataUriToBuffer(canvasDataUrl)
-  imageFilePath = "result.png";
+  imageFilePath = __dirname+"/../result.png";
   fs.writeFile(imageFilePath, decoded, (err) => {
     if (err) {
       console.log('ファイルの保存に失敗しました')
