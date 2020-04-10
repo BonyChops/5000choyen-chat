@@ -1,0 +1,24 @@
+{
+  "name": "5000choyen-chat",
+  "version": "1.0.0",
+  "description": "[5000兆円ジェネレーター](https://rare25.github.io/5000choyen/)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BonyChops/5000choyen-chat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BonyChops/5000choyen-chat/issues"
+  },
+  "homepage": "https://github.com/BonyChops/5000choyen-chat#readme"
+}
