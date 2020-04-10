@@ -8,7 +8,7 @@ function uploadImgur($imgdata){
     $pvars   = array('image' => $imgdata, 'key' => $client_id);
     $timeout = 30;
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, 'https://bonychops.com');
+    curl_setopt($curl, CURLOPT_URL, 'https://api.imgur.com/3/image');
     curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
     curl_setopt($curl, CURLOPT_POST, 1);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
