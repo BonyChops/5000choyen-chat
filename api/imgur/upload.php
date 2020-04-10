@@ -1,5 +1,5 @@
 <?php
-$img = file_get_contents("../../result.png");
+$img = file_get_contents("result.png");
 uploadImgur(base64_encode($img));
 
 function uploadImgur($imgdata){
