@@ -39,7 +39,7 @@ if ($message_type == "text"){
 }
 $recieve_data = $json_object->{"events"}[0]->{"postback"}->{"data"};
 
-$message_text = "!5cho THIS IS/TESTだお";
+
 if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"!5cho") !== FALSE)){
     //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
     trim(sscanf($message_text,"!5cho%s",$command));
@@ -52,12 +52,13 @@ if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"!
     $response_format_text = [[
         "type"=> "image",
         "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-        "previewImageUrl"=> "https://i.imgur.com/".$imgId."t.png"
+        "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
     ]];
     if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
     if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
-    $result = pushing_messages($accesstoken, $userId, $response_format_text);
-    //$result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    //$result = pushing_messages($accesstoken, $userId, $response_format_text);
+    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    exit;
 }
 
 if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"/unchi") !== FALSE)){
@@ -73,7 +74,10 @@ if(($sourceType == "group")||($sourceType == "room")){
     if($sendType == "join"){
         $response_format_text = [[
             "type" => "text",
-            "text" => "うんちです。/happyで反応するよ。よろしくー"
+            "text" => "5000兆円ほしい！！！\nコマンドは以下"
+        ],[
+            "type" => "text",
+            "text" => "!5cho 5000兆円/欲しい！"
         ]];
         $result = sending_messages($accesstoken, $replyToken, $response_format_text);
     }
