@@ -51,9 +51,6 @@ if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"!
     $imgResult =  uploadImgur(base64_encode($img));
     $imgId = $imgResult['data']['id'];
     $response_format_text = [[
-        "type" => "text",
-        "text" => $test
-    ],[
         "type"=> "image",
         "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
         "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
