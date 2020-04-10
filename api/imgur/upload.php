@@ -1,7 +1,6 @@
 <?php
 
 function uploadImgur($imgdata){
-    echo "a";
     $client_id = 'b59a4f70000e154';
     $pvars   = array('image' => $imgdata,"type" => 'base64');
     $timeout = 30;
@@ -14,6 +13,7 @@ function uploadImgur($imgdata){
     curl_setopt($curl, CURLOPT_POSTFIELDS, $pvars);
     $out = curl_exec($curl);
     curl_close ($curl);
-    echo $out;
-    return $out;
+    $result = json_decode($out, true);
+    var_dump($result);
+    return $result;
 }

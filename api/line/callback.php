@@ -47,13 +47,17 @@ if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"!
     echo "Generating...";
     Generate(trim($top), trim($bottom));
     $img = file_get_contents(__DIR__."/../../result.png");
-    echo uploadImgur(base64_encode($img));
-
+    $imgResult =  uploadImgur(base64_encode($img));
+    $imgId = $imgResult['data']['id'];
     $response_format_text = [[
-        "type" => "text",
-        "text" => $str
+        "type"=> "image",
+        "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
+        "previewImageUrl"=> "https://i.imgur.com/".$imgId."t.png"
     ]];
-    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
+    if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+    $result = pushing_messages($accesstoken, $userId, $response_format_text);
+    //$result = sending_messages($accesstoken, $replyToken, $response_format_text);
 }
 
 if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"/unchi") !== FALSE)){
@@ -102,13 +106,13 @@ function sending_messages($accessToken, $replyToken, $response_format_text){
     return $result;
 }
 
-function pushing_messages($accessToken, $replyToken, $response_format_text){
+function pushing_messages($accessToken, $userId, $response_format_text){
     //レスポンスフォーマット
    
  
     //ポストデータ
     $post_data = [
-        "replyToken" => $replyToken,
+        "to" => $userId,
         "messages" => $response_format_text
     ];
  
