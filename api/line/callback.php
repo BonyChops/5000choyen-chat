@@ -42,7 +42,7 @@ $recieve_data = $json_object->{"events"}[0]->{"postback"}->{"data"};
 $message_text = "!5cho てすと/だお";
 if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"!5cho") !== FALSE)){
     //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
-    list($command) = trim(sscanf($message_text,"!5cho%s"));
+    trim(sscanf($message_text,"!5cho%s",$command));
     list($top,$bottom) = explode($command, '/');
     echo "Generating...";
     Generate($top, $bottom);
