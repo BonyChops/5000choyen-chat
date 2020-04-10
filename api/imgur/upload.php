@@ -16,8 +16,6 @@ function uploadImgur($imgdata){
     curl_setopt($curl, CURLOPT_POSTFIELDS, $pvars);
     $out = curl_exec($curl);
     curl_close ($curl);
-    $out = curl_exec($curl);
-    curl_close ($curl);
     echo $out;
     return $out;
 }
