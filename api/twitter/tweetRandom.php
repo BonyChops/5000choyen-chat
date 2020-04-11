@@ -29,9 +29,13 @@ $objTwitterConection = new TwitterOAuth
 
 
 //$objTwUserInfo = $objTwitterConection->post("statuses/update",["status" => "Hello, world!"]);
+if(!isset($argv[2])){
+    $str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
+    $str2 = chooseVerb($objTwitterConection,$objTwitterConection2,"",false);
+    Generate($str, $str2."！");
+}else{
+    Generate($argv[1], $argv[2]);
+}
 
-$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
-$str2 = chooseVerb($objTwitterConection,$objTwitterConection2,"",false);
-Generate($str, $str2."！");
 $media1 = $objTwitterConection->upload('media/upload', ['media' => __DIR__."/../../result.png"]);
 $objTwUserInfo = $objTwitterConection->post("statuses/update",["status" => '', 'media_ids' => implode(',', [$media1->media_id_string])]);
