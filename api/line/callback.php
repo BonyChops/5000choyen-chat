@@ -81,7 +81,7 @@ if((($sourceType == "group")||($sourceType == "room"))&&(($comPos = strpos($mess
         shuffle($verbs);
         $bottom = $verbs[rand(0,sizeof($verbs)-1)];
         echo "Generating...";
-        $test = Generate(trim($top), trim($bottom));
+        $test = Generate(trim($top), trim($bottom)."！");
         $img = file_get_contents(__DIR__."/../../result.png");
         $imgResult =  uploadImgur(base64_encode($img));
         $imgId = $imgResult['data']['id'];
@@ -135,7 +135,7 @@ if((($sourceType != "group")&&($sourceType != "room"))){
         shuffle($verbs);
         $bottom = $verbs[rand(0,sizeof($verbs)-1)];
         echo "Generating...";
-        $test = Generate(trim($top), trim($bottom));
+        $test = Generate(trim($top), trim($bottom)."！");
         $img = file_get_contents(__DIR__."/../../result.png");
         $imgResult =  uploadImgur(base64_encode($img));
         $imgId = $imgResult['data']['id'];
