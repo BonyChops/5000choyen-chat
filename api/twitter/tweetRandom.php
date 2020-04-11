@@ -30,7 +30,6 @@ $objTwitterConection = new TwitterOAuth
 //$objTwUserInfo = $objTwitterConection->post("statuses/update",["status" => "Hello, world!"]);
 
 $str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
-$objTwUserInfo = $objTwitterConection->post("statuses/update",["status" => $str]);
-if($statuses == ""){
-    $statuses = array();
-}
+Generate($str, "欲しい！");
+$media1 = $connection->upload('media/upload', ['media' => __DIR__."/../../result.png"]);
+$objTwUserInfo = $objTwitterConection->post("statuses/update",["status" => '', 'media_ids' => implode(',', [$media1->media_id_string])]);
