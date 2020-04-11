@@ -44,29 +44,96 @@ $recieve_data = $json_object->{"events"}[0]->{"postback"}->{"data"};
 
 $comPos = 0;
 if((($sourceType == "group")||($sourceType == "room"))&&(($comPos = strpos($message_text,"!5cho")) !== FALSE)){
-    //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
-    $command = substr($message_text, $comPos + 5);
-    list($top,$bottom) = explode('/',$command);
-    echo "Generating...";
-    $test = Generate(trim($top), trim($bottom));
-    $img = file_get_contents(__DIR__."/../../result.png");
-    $imgResult =  uploadImgur(base64_encode($img));
-    $imgId = $imgResult['data']['id'];
-    $response_format_text = [[
-        "type"=> "image",
-        "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-        "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
-    ]];
-    if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
-    if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
-    //$result = pushing_messages($accesstoken, $userId, $response_format_text);
-    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
-    exit;
+    if(strpos($message_text,"/") !== FALSE){
+        //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
+        $command = substr($message_text, $comPos + 5);
+        list($top,$bottom) = explode('/',$command);
+        echo "Generating...";
+        $test = Generate(trim($top), trim($bottom));
+        $img = file_get_contents(__DIR__."/../../result.png");
+        $imgResult =  uploadImgur(base64_encode($img));
+        $imgId = $imgResult['data']['id'];
+        $response_format_text = [[
+            "type"=> "image",
+            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
+            "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
+        ]];
+        if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
+        if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+        //$result = pushing_messages($accesstoken, $userId, $response_format_text);
+        $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+        exit;
+    }else{
+        $words = json_decode(file_get_contents(__DIR__."/../../words/words.json",true));
+        $verbs = json_decode(file_get_contents(__DIR__."/../../words/verb.json",true));
+        if(($words == array())||(!isset($words))){
+            $words = [
+                "5000兆円"
+            ];
+        }
+        if(($verbs == array())||(!isset($verbs))){
+            $verbs = [
+                "欲しい"
+            ];
+        }
+        shuffle($words);
+        $top = $words[rand(0,sizeof($words)-1)];
+        shuffle($verbs);
+        $bottom = $verbs[rand(0,sizeof($verbs)-1)];
+        echo "Generating...";
+        $test = Generate(trim($top), trim($bottom));
+        $img = file_get_contents(__DIR__."/../../result.png");
+        $imgResult =  uploadImgur(base64_encode($img));
+        $imgId = $imgResult['data']['id'];
+        $response_format_text = [[
+            "type"=> "image",
+            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
+            "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
+        ]];
+        if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
+        if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+        //$result = pushing_messages($accesstoken, $userId, $response_format_text);
+        $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+        exit;
+    }
+
 }
 
 if((($sourceType != "group")&&($sourceType != "room"))){
     if(($comPos = strpos($message_text,"/")) !== FALSE){
         list($top,$bottom) = explode('/',$message_text);
+        echo "Generating...";
+        $test = Generate(trim($top), trim($bottom));
+        $img = file_get_contents(__DIR__."/../../result.png");
+        $imgResult =  uploadImgur(base64_encode($img));
+        $imgId = $imgResult['data']['id'];
+        $response_format_text = [[
+            "type"=> "image",
+            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
+            "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
+        ]];
+        if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
+        if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+        //$result = pushing_messages($accesstoken, $userId, $response_format_text);
+        $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+        exit;
+    }else{
+        $words = json_decode(file_get_contents(__DIR__."/../../words/words.json",true));
+        $verbs = json_decode(file_get_contents(__DIR__."/../../words/verb.json",true));
+        if(($words == array())||(!isset($words))){
+            $words = [
+                "5000兆円"
+            ];
+        }
+        if(($verbs == array())||(!isset($verbs))){
+            $verbs = [
+                "欲しい"
+            ];
+        }
+        shuffle($words);
+        $top = $words[rand(0,sizeof($words)-1)];
+        shuffle($verbs);
+        $bottom = $verbs[rand(0,sizeof($verbs)-1)];
         echo "Generating...";
         $test = Generate(trim($top), trim($bottom));
         $img = file_get_contents(__DIR__."/../../result.png");
@@ -93,6 +160,7 @@ if((strpos($message_text,"/unchi") !== FALSE)){
         "previewImageUrl" => "https://kotonova.com/wp-content/uploads/2016/05/ecb4746a9a9e9ca11f60f6e1fcdc3d76-768x432.png"
     ]];
     $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    exit;
 }
 
 if(($sourceType == "group")||($sourceType == "room")){
@@ -105,9 +173,14 @@ if(($sourceType == "group")||($sourceType == "room")){
             "text" => "!5cho 5000兆円/欲しい！"
         ]];
         $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+        exit;
     }
 }
 
+
+//どれにも該当しない場合
+
+  
 
 //echo $result;
 function sending_messages($accessToken, $replyToken, $response_format_text){
