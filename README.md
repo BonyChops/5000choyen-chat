@@ -1,10 +1,13 @@
-﻿# 5000choyen
- [5000兆円ジェネレーター](https://rare25.github.io/5000choyen/)
- 
-5000兆円風の文字を描画するWebツール
+﻿# 5000choyen-chat
+# Use 5000-choyen like font in your chat
+# Support
 
+- ## [Twitter](https://twitter.com/5000choyen_bot)
+- ## [LINE](https://lin.ee/s1XChBE)
 
-### ソースの再配布・再利用について
-2019/06/23にMIT Licenseを適用しました。以降はこちらに従ってください。
+# Coming soon...
+- ## Discord
+- ## Slack
 
-2019/06/22以前に公開されたものは、そのままで問題ありません。
+# Forked from
+### [Rare25 / 5000choyen](https://github.com/Rare25/5000choyen)
