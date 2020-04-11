@@ -31,10 +31,10 @@ function chooseTweet($objTwitterConection, $objTwitterConection2,$custom = "", $
         $str = processTweet($str);
         exec('echo \''.$str.'\' | mecab',$array);
         foreach($array as $value2){
-            if($value != 'EOS'){
+            if($value2 != 'EOS'){
                 list($s,$s2) = sscanf($value2,"%s %s");
                 echo $s2;
-                
+
                 list($type,$dump,$dump,$dump,$dump,$dump,$default,$dump,$dump) = explode(",", $s2); 
 
                 if($type == "名詞"){
