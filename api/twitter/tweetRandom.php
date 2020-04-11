@@ -12,8 +12,6 @@ $sTwitterAccessTokenSecret = $config['twitter']['oauth']['secret'];
 //インポート
 use Abraham\TwitterOAuth\TwitterOAuth;
 
-$TwitterAccountInfo = json_decode(file_get_contents('login/'.$accesstoken_filename),true);
-
 $objTwitterConection = new TwitterOAuth
  (
  $sTwitterConsumerKey,
