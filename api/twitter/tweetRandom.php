@@ -32,5 +32,5 @@ $objTwitterConection = new TwitterOAuth
 
 $str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
 Generate($str, "欲しい！");
-$media1 = $connection->upload('media/upload', ['media' => __DIR__."/../../result.png"]);
+$media1 = $objTwitterConection->upload('media/upload', ['media' => __DIR__."/../../result.png"]);
 $objTwUserInfo = $objTwitterConection->post("statuses/update",["status" => '', 'media_ids' => implode(',', [$media1->media_id_string])]);
