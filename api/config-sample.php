@@ -8,7 +8,11 @@ $config = [
     ],
     "twitter"=>[
         "key" => '***',
-        "secret" => '***'
+        "secret" => '***',
+        'oauth' => [
+            'key' => '***',
+            'secret' => '***'
+        ]
     ]
 
 ];
