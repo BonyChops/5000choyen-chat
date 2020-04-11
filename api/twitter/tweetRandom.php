@@ -3,7 +3,7 @@
 //インクルード
 require_once __DIR__.'/../config.php';
 require_once __DIR__.'/../../vendor/autoload.php';
-require_once __DIR__."chooseTweet.php";
+require_once __DIR__."/chooseTweet.php";
 $sTwitterConsumerKey = $config['twitter']['key'];
 $sTwitterConsumerSecret = $config['twitter']['secret'];
 $sTwitterAccessToken = $config['twitter']['oauth']['key'];
