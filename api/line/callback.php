@@ -43,7 +43,7 @@ if ($message_type == "text"){
 $recieve_data = $json_object->{"events"}[0]->{"postback"}->{"data"};
 
 $comPos = 0;
-if((($sourceType != "group")&&($sourceType != "room"))||(($comPos = strpos($message_text,"!5cho")) !== FALSE)){
+if((($sourceType == "group")||($sourceType == "room"))&&(($comPos = strpos($message_text,"!5cho")) !== FALSE)){
     //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
     $command = substr($message_text, $comPos + 5);
     list($top,$bottom) = explode('/',$command);
@@ -64,7 +64,29 @@ if((($sourceType != "group")&&($sourceType != "room"))||(($comPos = strpos($mess
     exit;
 }
 
-if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"/unchi") !== FALSE)){
+if((($sourceType != "group")&&($sourceType != "room"))){
+    if(($comPos = strpos($message_text,"/")) !== FALSE){
+        list($top,$bottom) = explode('/',$message_text);
+        echo "Generating...";
+        $test = Generate(trim($top), trim($bottom));
+        $img = file_get_contents(__DIR__."/../../result.png");
+        $imgResult =  uploadImgur(base64_encode($img));
+        $imgId = $imgResult['data']['id'];
+        $response_format_text = [[
+            "type"=> "image",
+            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
+            "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
+        ]];
+        if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
+        if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+        //$result = pushing_messages($accesstoken, $userId, $response_format_text);
+        $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+        exit;
+    }
+    //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
+}
+
+if((strpos($message_text,"/unchi") !== FALSE)){
     $response_format_text = [[
         "type" => "video",
         "originalContentUrl" => "https://bonychops.com/experiment/Happinessbot/LINE/OtowareShimaziro.mp4",

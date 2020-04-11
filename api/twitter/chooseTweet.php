@@ -50,8 +50,61 @@ function chooseTweet($objTwitterConection, $objTwitterConection2,$custom = "", $
     //var_dump($searchResult->{"statuses"}[0]);
     file_put_contents(__DIR__."/../../words/words.json",json_encode($words));
     return $cntWord;
+}
+
+function chooseVerb($objTwitterConection, $objTwitterConection2,$custom = "", $like = false, $displayMessage = true){
+    //srand(time());
+
+    $date = date('Y-m-d G:i:s');
+    $words = json_decode(file_get_contents(__DIR__."/../../words/verb.json",true));
+    if(($words == array())||(!isset($words))){
+        $words = [
+            "欲しい"
+        ];
+    }
+
+    shuffle($words);
+    $cntWord = $words[rand(0,sizeof($words)-1)];
+    if($custom != ""){
+        $cntWord = $custom;
+    }
+
+    if($displayMessage == true){
+        printf($cntWord."\n");
+    }
+    if(!isset($LastID)){
+        $searchResult = $objTwitterConection2->get("search/tweets",["q" => $cntWord, "count" => 100,"lang" => "ja"]);
+    }else{
+        //printf("LastID detected:".$LastID."\n");
+        $searchResult = $objTwitterConection2->get("search/tweets",["q" => $cntWord, "count" => 100,"lang" => "ja","max_id"=>$LastID]);
+    }
+    foreach($searchResult->{"statuses"} as $value){
+        $str = $value->{"text"};
+        $str = processTweet($str);
+        exec('echo \''.$str.'\' | mecab',$array);
+        foreach($array as $value2){
+            if($value2 != 'EOS'){
+                list($s,$s2) = sscanf($value2,"%s %s");
+
+                list($type,$dump,$dump,$dump,$dump,$dump,$default,$dump,$dump) = explode(",", $s2); 
+
+                if($type == "動詞"){
+                    printf($default."\n");
+                    if(
+                        (array_search($default,$words) === false)
+                    ){
+                        array_push($words,$default);
+                    }
+                }
+            }
+        }
+    }
+    //var_dump($searchResult->{"statuses"}[0]);
+    file_put_contents(__DIR__."/../../words/verb.json",json_encode($words));
+    return $cntWord;
 
 }
+
 //From https://qiita.com/nobuyuki-ishii/items/2838e663e2ab8d99ffd5
 function processTweet($text) {
     $text = deleteUser($text);
