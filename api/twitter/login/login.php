@@ -3,7 +3,7 @@ session_start();
  
 //インクルード
 require_once __DIR__.'/../../config.php';
-require_once __DIR__.'../../../vendor/autoload.php';
+require_once __DIR__.'/../../../vendor/autoload.php';
 $sTwitterConsumerKey = $config['twitter']['key'];
 $sTwitterConsumerSecret = $config['twitter']['secret'];
 
