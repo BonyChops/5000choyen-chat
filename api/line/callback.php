@@ -3,6 +3,7 @@ $config = json_decode(file_get_contents(__DIR__."/../config.json") ,true);
 $accesstoken = $config["line"]["accesstoken"];
 require_once(__DIR__.'/../../generate.php');
 require_once(__DIR__.'/../imgur/upload.php');
+require_once(__DIR__.'/../../vendor/autoload.php');
  /* 
 //インポート
 use Abraham\TwitterOAuth\TwitterOAuth;
@@ -40,10 +41,10 @@ if ($message_type == "text"){
 }
 $recieve_data = $json_object->{"events"}[0]->{"postback"}->{"data"};
 
-
-if((($sourceType != "group")&&($sourceType != "room"))||(strpos($message_text,"!5cho") !== FALSE)){
+$comPos = 0;
+if((($sourceType != "group")&&($sourceType != "room"))||(($comPos = strpos($message_text,"!5cho")) !== FALSE)){
     //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
-    trim(sscanf($message_text,"!5cho%s",$command));
+    $command = substr($message_text, $comPos + 5);
     list($top,$bottom) = explode('/',$command);
     echo "Generating...";
     $test = Generate(trim($top), trim($bottom));
