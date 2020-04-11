@@ -31,7 +31,6 @@ $objTwitterConection = new TwitterOAuth
 
 $str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
 $objTwUserInfo = $objTwitterConection->post("statuses/update",["status" => $str]);
-$statuses = json_decode(file_get_contents("words/statuses.js",true));
 if($statuses == ""){
     $statuses = array();
 }
