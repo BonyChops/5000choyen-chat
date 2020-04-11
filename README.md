@@ -14,3 +14,4 @@ Use 5000-choyen like font in your chat
 
 # Package
 ### [abraham/twitteroauth](https://github.com/abraham/twitteroauth)
+### [MeCab](https://taku910.github.io/mecab/)
