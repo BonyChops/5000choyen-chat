@@ -33,6 +33,8 @@ function chooseTweet($objTwitterConection, $objTwitterConection2,$custom = "", $
         foreach($array as $value2){
             if($value != 'EOS'){
                 list($s,$s2) = sscanf($value2,"%s %s");
+                echo $s2;
+                
                 list($type,$dump,$dump,$dump,$dump,$dump,$default,$dump,$dump) = explode(",", $s2); 
 
                 if($type == "名詞"){
