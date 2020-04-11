@@ -1,9 +1,10 @@
 <?php
-$config = json_decode(file_get_contents(__DIR__."/../config.json") ,true);
+require_once(__DIR__.'/../config.php');
 $accesstoken = $config["line"]["accesstoken"];
 require_once(__DIR__.'/../../generate.php');
 require_once(__DIR__.'/../imgur/upload.php');
 require_once(__DIR__.'/../../vendor/autoload.php');
+
  /* 
 //インポート
 use Abraham\TwitterOAuth\TwitterOAuth;
