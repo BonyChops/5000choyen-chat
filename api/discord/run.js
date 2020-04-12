@@ -31,7 +31,7 @@ client.on('message', msg => {
         console.log(jsonObject.url);
         msg.channel.stopTyping();
         //sent_mes =  msg.reply('',{files: {jsonObject.url}});
-        const attachment = new MessageAttachment(jsonObject.url);
+        const attachment = new MessageAttachment(path.resolve(__dirname, '../../result.png'));
         msg.channel.send(attachment);
         msg.delete();
        
