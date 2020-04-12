@@ -46,5 +46,6 @@ process.on('SIGINT', function() {
     process.exit();
 });
 const config = JSON.parse(fs.readFileSync(__dirname+'/../console.json', 'utf8'));
+console.log(config[discord][token]);
 client.login(config[discord][token]); // botログイン
 
