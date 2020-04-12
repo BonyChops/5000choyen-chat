@@ -30,7 +30,10 @@ client.on('message', msg => {
         const jsonObject = JSON.parse(fs.readFileSync(path.resolve(__dirname, './imgur_url.json'), 'utf8'));
         console.log(jsonObject.url);
         msg.channel.stopTyping();
-        sent_mes =  msg.reply('',{file: jsonObject.url});
+        //sent_mes =  msg.reply('',{files: {jsonObject.url}});
+        msg.channel.send("some text", {
+            file: jsonObject.url // Or replace with FileOptions object
+        });
         msg.delete();
        
     }
