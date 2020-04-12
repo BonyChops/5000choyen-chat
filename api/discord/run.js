@@ -1,5 +1,5 @@
-const {Discord, MessageAttachment} = require('discord.js');
-const client = new Discord.Client();
+const {Client, MessageAttachment} = require('discord.js');
+const client = new Client();
 const { exec, execSync } = require('child_process')
 //const jsonObject = JSON.parse(fs.readFileSync(__dirname+'/../input.json', 'utf8'));
 const path = require('path');
