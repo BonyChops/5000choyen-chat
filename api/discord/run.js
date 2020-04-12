@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const { exec, execSync } = require('child_process')
 //const jsonObject = JSON.parse(fs.readFileSync(__dirname+'/../input.json', 'utf8'));
+const path = require('path');
 const fs = require("fs");
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -26,7 +27,7 @@ client.on('message', async msg => {
         //console.log('kusa');
         output = await execSync('php '+__dirname+'/analyze.php "'+msg.content+'"');
         console.log(output);
-        const jsonObject = JSON.parse(fs.readFileSync(__dirname+'/imgur_url.json', 'utf8'));
+        const jsonObject = JSON.parse(fs.readFileSync(path.resolve(__dirname, './imgur_url.json'), 'utf8'));
         console.log(jsonObject[url]);
         msg.channel.stopTyping();
         sent_mes =  msg.reply('pong');
@@ -45,7 +46,7 @@ process.on('SIGINT', function() {
     client.destroy();
     process.exit();
 });
-const config = JSON.parse(fs.readFileSync(__dirname+'/../console.json', 'utf8'));
-console.log(config[discord][token]);
-client.login(config[discord][token]); // botログイン
+const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../config.json'), 'utf8'));
+console.log(config.discord.token);
+client.login(config.discord.token); // botログイン
 
