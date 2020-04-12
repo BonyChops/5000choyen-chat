@@ -28,7 +28,7 @@ client.on('message', async msg => {
         output = await execSync('php '+__dirname+'/analyze.php "'+msg.content+'"');
         console.log(output);
         const jsonObject = JSON.parse(fs.readFileSync(path.resolve(__dirname, './imgur_url.json'), 'utf8'));
-        console.log(jsonObject[url]);
+        console.log(jsonObject.url);
         msg.channel.stopTyping();
         sent_mes =  msg.reply('pong');
         msg.delete();
