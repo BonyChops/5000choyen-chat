@@ -11,7 +11,7 @@ if(($comPos = strpos($message_text,"!5cho")) !== FALSE){
         list($top,$bottom) = explode('/',$command);
         echo "Generating...";
         $test = Generate(trim($top), trim($bottom));
-        $img = file_get_contents(__DIR__."/../../result.png");
+        /* $img = file_get_contents(__DIR__."/../../result.png");
         $imgResult =  uploadImgur(base64_encode($img));
         $imgId = $imgResult['data']['id'];
         $response_format_text = [[
@@ -20,7 +20,7 @@ if(($comPos = strpos($message_text,"!5cho")) !== FALSE){
             "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
         ]];
         print("https://i.imgur.com/".$imgId.".png");
-        file_put_contents(__DIR__."/imgur_url.json",json_encode(['url' =>"https://i.imgur.com/".$imgId.".png"]));
+        file_put_contents(__DIR__."/imgur_url.json",json_encode(['url' =>"https://i.imgur.com/".$imgId.".png"])); */
         exit;
     }else{
         $words = json_decode(file_get_contents(__DIR__."/../../words/words.json",true));
@@ -41,7 +41,7 @@ if(($comPos = strpos($message_text,"!5cho")) !== FALSE){
         $bottom = $verbs[rand(0,sizeof($verbs)-1)];
         echo "Generating...";
         $test = Generate(trim($top), trim($bottom)."！");
-        $img = file_get_contents(__DIR__."/../../result.png");
+/*         $img = file_get_contents(__DIR__."/../../result.png");
         $imgResult =  uploadImgur(base64_encode($img));
         $imgId = $imgResult['data']['id'];
         $response_format_text = [[
@@ -50,7 +50,7 @@ if(($comPos = strpos($message_text,"!5cho")) !== FALSE){
             "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
         ]];
         print("https://i.imgur.com/".$imgId.".png");
-        file_put_contents(__DIR__."/imgur_url.json",json_encode(['url' =>"https://i.imgur.com/".$imgId.".png"]));
+        file_put_contents(__DIR__."/imgur_url.json",json_encode(['url' =>"https://i.imgur.com/".$imgId.".png"])); */
         exit;
     }
 

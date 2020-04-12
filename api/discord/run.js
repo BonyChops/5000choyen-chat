@@ -29,12 +29,11 @@ client.on('message', msg => {
         console.log(output);
         const jsonObject = JSON.parse(fs.readFileSync(path.resolve(__dirname, './imgur_url.json'), 'utf8'));
         console.log(jsonObject.url);
-        msg.channel.stopTyping();
         //sent_mes =  msg.reply('',{files: {jsonObject.url}});
         const attachment = new MessageAttachment(path.resolve(__dirname, '../../result.png'));
-        msg.channel.send(attachment);
+        msg.reply(attachment);
         msg.delete();
-       
+        msg.channel.stopTyping();
     }
 });
 
