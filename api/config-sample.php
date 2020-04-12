@@ -13,6 +13,9 @@ $config = [
             'key' => '***',
             'secret' => '***'
         ]
+    ],
+    "discord"=>[
+        "token" => '***'
     ]
 
 ];
