@@ -27,7 +27,7 @@ client.on('message', async msg => {
         output = await execSync('php '+__dirname+'/analyze.php "'+msg.content+'"');
         console.log(output);
         const jsonObject = require(__dirname+'/imgur_url.json');
-        console.log(jsonObject.url);
+        console.log(jsonObject[url]);
         msg.channel.stopTyping();
         sent_mes =  msg.reply('pong');
         msg.delete();
@@ -46,5 +46,5 @@ process.on('SIGINT', function() {
     process.exit();
 });
 const config = require(__dirname+'/../console.json');
-client.login(config.discord.token); // botログイン
+client.login(config[discord][token]); // botログイン
 
