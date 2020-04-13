@@ -20,12 +20,12 @@ const execWait = (cmd) => {
     });
 }
 
-client.on('message', async msg => {
+client.on('message', msg => {
     if(msg.content.indexOf('!5cho') !== -1){
         //console.log('kusa2');
         msg.channel.startTyping();
         //console.log('kusa');
-        output = await execSync('php '+__dirname+'/analyze.php "'+msg.content+'"');
+        output = execSync('php '+__dirname+'/analyze.php "'+msg.content+'"');
         console.log(output);
         const jsonObject = JSON.parse(fs.readFileSync(path.resolve(__dirname, './imgur_url.json'), 'utf8'));
         console.log(jsonObject.url);
@@ -34,12 +34,6 @@ client.on('message', async msg => {
         msg.reply(attachment);
         msg.delete();
         msg.channel.stopTyping();
-        try {
-            fs.unlinkSync(path.resolve(__dirname, '../../result.png'));
-            console.log('削除しました。');
-        } catch (error) {
-            throw error;
-        }
     }
 });
 
