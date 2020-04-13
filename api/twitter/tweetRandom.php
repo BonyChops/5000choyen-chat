@@ -35,6 +35,8 @@ $str2 = chooseVerb($objTwitterConection,$objTwitterConection2,"",false);
 Generate($str, $str2."！");
 if(!file_exists(__DIR__."/../../result.png")){
     printf("Error! File not exist(".__DIR__."/../../result.png".")");
+}else{
+    printf("OK");
 }
 $media1 = $objTwitterConection->upload('media/upload', ['media' => __DIR__."/../../result.png"]);
 $objTwUserInfo = $objTwitterConection->post("statuses/update",["status" => '', 'media_ids' => implode(',', [$media1->media_id_string])]);
