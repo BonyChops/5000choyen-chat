@@ -35,4 +35,4 @@ $str2 = chooseVerb($objTwitterConection,$objTwitterConection2,"",false);
 Generate($str, $str2."！");
 $media1 = $objTwitterConection->upload('media/upload', ['media' => __DIR__."/../../result.png"]);
 $objTwUserInfo = $objTwitterConection->post("statuses/update",["status" => '', 'media_ids' => implode(',', [$media1->media_id_string])]);
-delete(__DIR__."/../../result.png");
+unlink(__DIR__."/../../result.png");
