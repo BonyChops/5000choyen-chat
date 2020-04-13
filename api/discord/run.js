@@ -20,7 +20,7 @@ const execWait = (cmd) => {
     });
 }
 
-client.on('message', msg => {
+client.on('message', async msg => {
     if(msg.content.indexOf('!5cho') !== -1){
         //console.log('kusa2');
         msg.channel.startTyping();
