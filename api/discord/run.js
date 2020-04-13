@@ -34,6 +34,12 @@ client.on('message', msg => {
         msg.reply(attachment);
         msg.delete();
         msg.channel.stopTyping();
+        try {
+            fs.unlinkSync(path.resolve(__dirname, '../../result.png'));
+            console.log('削除しました。');
+        } catch (error) {
+            throw error;
+        }
     }
 });
 
