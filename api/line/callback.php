@@ -94,7 +94,7 @@ if((($sourceType == "group")||($sourceType == "room"))&&(($comPos = strpos($mess
         if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
         //$result = pushing_messages($accesstoken, $userId, $response_format_text);
         $result = sending_messages($accesstoken, $replyToken, $response_format_text);
-        delete(__DIR__."/../../result.png");
+        unlink(__DIR__."/../../result.png");
         exit;
     }
 
@@ -117,7 +117,7 @@ if((($sourceType != "group")&&($sourceType != "room"))){
         if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
         //$result = pushing_messages($accesstoken, $userId, $response_format_text);
         $result = sending_messages($accesstoken, $replyToken, $response_format_text);
-        delete(__DIR__."/../../result.png");
+        unlink(__DIR__."/../../result.png");
         exit;
     }else{
         $words = json_decode(file_get_contents(__DIR__."/../../words/words.json",true));
@@ -150,7 +150,7 @@ if((($sourceType != "group")&&($sourceType != "room"))){
         if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
         //$result = pushing_messages($accesstoken, $userId, $response_format_text);
         $result = sending_messages($accesstoken, $replyToken, $response_format_text);
-        delete(__DIR__."/../../result.png");
+        unlink(__DIR__."/../../result.png");
         exit;
     }
     //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
