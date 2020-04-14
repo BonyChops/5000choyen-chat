@@ -41,6 +41,10 @@ if ($message_type == "text"){
     $message_text = $json_object->{"events"}[0]->{"message"}->{"text"};    //メッセージ内容
 }
 $recieve_data = $json_object->{"events"}[0]->{"postback"}->{"data"};
+if(file_exists(__DIR__."/../../result.png")){
+    unlink(__DIR__."/../../result.png");
+}
+
 
 $comPos = 0;
 if((($sourceType == "group")||($sourceType == "room"))&&(($comPos = strpos($message_text,"!5cho")) !== FALSE)){
