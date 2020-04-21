@@ -117,7 +117,7 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
         Generate_SPC($price, $userName, $comment);
     }else{
         $command = substr($message_text, $comPos + 4);
-        if(ctype_digit($command)){
+        if(is_numeric($command)){
             Generate_SPC($command, $userName,"");
         }else{
             Generate_SPC(-1, $userName, trim($command));
