@@ -47,26 +47,13 @@ if(file_exists(__DIR__."/../../result.png")){
 
 
 $comPos = 0;
-if((($sourceType == "group")||($sourceType == "room"))&&(($comPos = strpos($message_text,"!5cho")) !== FALSE)){
+if(($comPos = strpos($message_text,"!5cho")) !== FALSE){
     if(strpos($message_text,"/") !== FALSE){
         //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
         $command = substr($message_text, $comPos + 5);
         list($top,$bottom) = explode('/',$command);
         echo "Generating...";
         $test = Generate(trim($top), trim($bottom));
-        $img = file_get_contents(__DIR__."/../../result.png");
-        $imgResult =  uploadImgur(base64_encode($img));
-        $imgId = $imgResult['data']['id'];
-        $response_format_text = [[
-            "type"=> "image",
-            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-            "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
-        ]];
-        if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
-        if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
-        //$result = pushing_messages($accesstoken, $userId, $response_format_text);
-        $result = sending_messages($accesstoken, $replyToken, $response_format_text);
-        exit;
     }else{
         $words = json_decode(file_get_contents(__DIR__."/../../words/words.json",true));
         $verbs = json_decode(file_get_contents(__DIR__."/../../words/verb.json",true));
@@ -86,78 +73,51 @@ if((($sourceType == "group")||($sourceType == "room"))&&(($comPos = strpos($mess
         $bottom = $verbs[rand(0,sizeof($verbs)-1)];
         echo "Generating...";
         $test = Generate(trim($top), trim($bottom)."！");
-        $img = file_get_contents(__DIR__."/../../result.png");
-        $imgResult =  uploadImgur(base64_encode($img));
-        $imgId = $imgResult['data']['id'];
-        $response_format_text = [[
-            "type"=> "image",
-            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-            "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
-        ]];
-        if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
-        if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
-        //$result = pushing_messages($accesstoken, $userId, $response_format_text);
-        $result = sending_messages($accesstoken, $replyToken, $response_format_text);
-        unlink(__DIR__."/../../result.png");
-        exit;
     }
-
+    $img = file_get_contents(__DIR__."/../../result.png");
+    $imgResult =  uploadImgur(base64_encode($img));
+    $imgId = $imgResult['data']['id'];
+    $response_format_text = [[
+        "type"=> "image",
+        "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
+        "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
+    ]];
+    if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
+    if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    unlink(__DIR__."/../../result.png");
+    exit;
+}
+if(($comPos = strpos($message_text,"!spc")) !== FALSE){
+    $userInfo = getUserInfo($accesstoken, $userId);
+    $userName = $userInfo["displayName"];
+    $iconURL = $userInfo["pictureUrl"];
+    file_put_contents(__DIR__."/../../docs/userIcon.png",file_get_contents($iconURL));
+    if(strpos($message_text,"/") !== FALSE){
+        $command = substr($message_text, $comPos + 4);
+        list($price,$comment) = explode('/',$command);
+        Generate_SPC($price, $username, $comment);
+    }else{
+        $command = substr($message_text, $comPos + 4);
+        Generate_SPC($command, $username, "");
+    }
+    $img = file_get_contents(__DIR__."/../../result.png");
+    $imgResult =  uploadImgur(base64_encode($img));
+    $imgId = $imgResult['data']['id'];
+    $response_format_text = [[
+        "type"=> "image",
+        "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
+        "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
+    ]];
+    if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
+    if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    unlink(__DIR__."/../../result.png");
+    exit;
 }
 
 if((($sourceType != "group")&&($sourceType != "room"))){
-    if(($comPos = strpos($message_text,"/")) !== FALSE){
-        list($top,$bottom) = explode('/',$message_text);
-        echo "Generating...";
-        $test = Generate(trim($top), trim($bottom));
-        $img = file_get_contents(__DIR__."/../../result.png");
-        $imgResult =  uploadImgur(base64_encode($img));
-        $imgId = $imgResult['data']['id'];
-        $response_format_text = [[
-            "type"=> "image",
-            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-            "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
-        ]];
-        if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
-        if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
-        //$result = pushing_messages($accesstoken, $userId, $response_format_text);
-        $result = sending_messages($accesstoken, $replyToken, $response_format_text);
-        unlink(__DIR__."/../../result.png");
-        exit;
-    }else{
-        $words = json_decode(file_get_contents(__DIR__."/../../words/words.json",true));
-        $verbs = json_decode(file_get_contents(__DIR__."/../../words/verb.json",true));
-        if(($words == array())||(!isset($words))){
-            $words = [
-                "5000兆円"
-            ];
-        }
-        if(($verbs == array())||(!isset($verbs))){
-            $verbs = [
-                "欲しい"
-            ];
-        }
-        shuffle($words);
-        $top = $words[rand(0,sizeof($words)-1)];
-        shuffle($verbs);
-        $bottom = $verbs[rand(0,sizeof($verbs)-1)];
-        echo "Generating...";
-        $test = Generate(trim($top), trim($bottom)."！");
-        $img = file_get_contents(__DIR__."/../../result.png");
-        $imgResult =  uploadImgur(base64_encode($img));
-        $imgId = $imgResult['data']['id'];
-        $response_format_text = [[
-            "type"=> "image",
-            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-            "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
-        ]];
-        if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
-        if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
-        //$result = pushing_messages($accesstoken, $userId, $response_format_text);
-        $result = sending_messages($accesstoken, $replyToken, $response_format_text);
-        unlink(__DIR__."/../../result.png");
-        exit;
-    }
-    //$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
+    
 }
 
 if((strpos($message_text,"/unchi") !== FALSE)){
@@ -178,6 +138,9 @@ if(($sourceType == "group")||($sourceType == "room")){
         ],[
             "type" => "text",
             "text" => "!5cho 5000兆円/欲しい！"
+        ],[
+            "type" => "text",
+            "text" => "!spc 金額/(メッセージ)"
         ]];
         $result = sending_messages($accesstoken, $replyToken, $response_format_text);
         exit;
@@ -231,6 +194,28 @@ function pushing_messages($accessToken, $userId, $response_format_text){
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json; charser=UTF-8',
+        'Authorization: Bearer ' . $accessToken
+    ));
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return $result;
+}
+
+function getUserInfo($accessToken, $userId){
+    //レスポンスフォーマット
+   
+ 
+    //ポストデータ
+    $post_data = [
+        "to" => $userId,
+        "messages" => $response_format_text
+    ];
+ 
+    //curl実行
+    $ch = curl_init("https://api.line.me/v2/bot/profile/".$userId);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         'Content-Type: application/json; charser=UTF-8',
         'Authorization: Bearer ' . $accessToken
