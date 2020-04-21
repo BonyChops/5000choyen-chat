@@ -93,8 +93,7 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
     file_put_contents(__DIR__."/../../test.json",json_encode($userInfo));
     $userName = $userInfo["displayName"];
     $iconURL = $userInfo["pictureUrl"];
-    file_put_contents(__DIR__."/../../docs/userIcon.png","test");
-    file_put_contents(__DIR__."/../../docs/userIcon.png",file_get_contents($iconURL));
+    file_put_contents(__DIR__."/../../docs/userIcon.png",getUserIcon($iconURL));
     if(strpos($message_text,"/") !== FALSE){
         $command = substr($message_text, $comPos + 4);
         list($price,$comment) = explode('/',$command);
@@ -213,6 +212,19 @@ function getUserInfo($accessToken, $userId){
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         'Content-Type: application/json; charser=UTF-8',
         'Authorization: Bearer ' . $accessToken
+    ));
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return $result;
+}
+
+function getUserIcon($url){
+    
+    //curl実行
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json; charser=UTF-8'
     ));
     $result = curl_exec($ch);
     curl_close($ch);
