@@ -100,7 +100,12 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
         Generate_SPC($price, $userName, $comment);
     }else{
         $command = substr($message_text, $comPos + 4);
-        Generate_SPC(-1, $userName, $command);
+        if(ctype_digit($command)){
+            
+        }else{
+            Generate_SPC(-1, $userName, $command);
+        }
+        
     }
     $img = file_get_contents(__DIR__."/../../result.png");
     $imgResult =  uploadImgur(base64_encode($img));
