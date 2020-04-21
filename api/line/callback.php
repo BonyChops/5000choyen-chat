@@ -98,11 +98,11 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
     if(!isset($roomType)){
         $userInfo = json_decode(getUserInfo($accesstoken, $userId), true);
     }else{
-        if($roomType = "group"){
+        if($roomType == "group"){
             $userInfo = json_decode(getGroupUserInfo($accesstoken, $userId, $RmId), true);
             file_put_contents(__DIR__."/../../docs/userIcon22.json",json_encode($userInfo));
         }
-        if($roomType = "room"){
+        if($roomType == "room"){
             $userInfo = json_decode(getRoomUserInfo($accesstoken, $userId, $RmId), true);
         }
         
