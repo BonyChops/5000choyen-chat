@@ -64,7 +64,7 @@ function reset() {
 
 
   //context.clearRect(0,0,canvas.width,canvas.height);
-  if((textbox.comment != null)&&(textbox.money >= 200)){
+  if((textbox.comment != "")&&(textbox.money >= 200)){
     drawsq(x,y,w,h,r,color,base_color,txt_color,true);
     drawsq_cm(x,y,w,h,r,color,base_color,txt_color);
   }else{
