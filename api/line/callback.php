@@ -118,7 +118,7 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
     }else{
         $command = substr($message_text, $comPos + 4);
         if(ctype_digit($command)){
-            
+            Generate_SPC($command, $userName,"");
         }else{
             Generate_SPC(-1, $userName, trim($command));
         }
