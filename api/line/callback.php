@@ -93,6 +93,7 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
     file_put_contents(__DIR__."/../../test.json",json_encode($userInfo));
     $userName = $userInfo["displayName"];
     $iconURL = $userInfo["pictureUrl"];
+    file_put_contents(__DIR__."/../../docs/userIcon.png","test");
     file_put_contents(__DIR__."/../../docs/userIcon.png",file_get_contents($iconURL));
     if(strpos($message_text,"/") !== FALSE){
         $command = substr($message_text, $comPos + 4);
