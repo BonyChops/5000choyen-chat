@@ -89,7 +89,7 @@ if(($comPos = strpos($message_text,"!5cho")) !== FALSE){
     exit;
 }
 if(($comPos = strpos($message_text,"!spc")) !== FALSE){
-    $userInfo = json_decode(getUserInfo($accesstoken, $userId));
+    $userInfo = json_decode(getUserInfo($accesstoken, $userId), true);
     $userName = $userInfo["displayName"];
     $iconURL = $userInfo["pictureUrl"];
     file_put_contents(__DIR__."/../../docs/userIcon.txt",$iconURL);
