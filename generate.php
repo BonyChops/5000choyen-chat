@@ -4,7 +4,7 @@ function Generate($str1, $str2){
 }
 
 function Generate_SPC($price, $username, $comment){
-    return exec(sprintf('node %s/docs/SuperChat.js "%s" %s "%s"',__DIR__, $price, $username, $comment));
+    return exec(sprintf('node %s/docs/SuperChat.js "%s" %s "%s"',__DIR__, $username, $price, $comment));
 }
 /*
 {
