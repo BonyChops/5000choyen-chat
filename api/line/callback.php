@@ -33,8 +33,14 @@ $json_object = json_decode($json_string);
 $replyToken = $json_object->{"events"}[0]->{"replyToken"};        //返信用トークン
 $userId =  $json_object->{"events"}[0]->{"source"}->{"userId"};
 $sourceType =  $json_object->{"events"}[0]->{"source"}->{"type"};
-if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $RmId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
-if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $RmId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})){
+    $RmId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
+    $roomType = "group";
+} 
+if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})){ 
+    $RmId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+    $roomType = "room";
+}
 $sendType = $json_object->{"events"}[0]->{"type"}; 
 $message_type = $json_object->{"events"}[0]->{"message"}->{"type"};    //メッセージタイプ
 if ($message_type == "text"){
@@ -89,8 +95,19 @@ if(($comPos = strpos($message_text,"!5cho")) !== FALSE){
     exit;
 }
 if(($comPos = strpos($message_text,"!spc")) !== FALSE){
-    $userInfo = json_decode(getUserInfo($accesstoken, $userId), true);
-    $userName = $userInfo["displayName"];
+    if(!isset($roomType)){
+        $userInfo = json_decode(getUserInfo($accesstoken, $userId), true);
+    }else{
+        if($roomType = "group"){
+            $userInfo = json_decode(getGroupUserInfo($accesstoken, $userId, $RmId), true);
+            file_put_contents(__DIR__."/../../docs/userIcon22.txt",$userInfo);
+        }
+        if($roomType = "room"){
+            $userInfo = json_decode(getRoomUserInfo($accesstoken, $userId, $RmId), true);
+        }
+        
+    }
+     $userName = $userInfo["displayName"];
     $iconURL = $userInfo["pictureUrl"];
     file_put_contents(__DIR__."/../../docs/userIcon.txt",$userInfo);
     file_put_contents(__DIR__."/../../docs/userIcon.png",file_get_contents($iconURL));
@@ -214,6 +231,34 @@ function getUserInfo($accessToken, $userId){
  
     //curl実行
     $ch = curl_init("https://api.line.me/v2/bot/profile/".$userId);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json; charser=UTF-8',
+        'Authorization: Bearer ' . $accessToken
+    ));
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return $result;
+}
+
+function getGroupUserInfo($accessToken, $userId, $RmId){
+ 
+    //curl実行
+    $ch = curl_init("https://api.line.me/v2/bot/group/".$RmId."/member/".$userId);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json; charser=UTF-8',
+        'Authorization: Bearer ' . $accessToken
+    ));
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return $result;
+}
+
+function getRoomUserInfo($accessToken, $userId, $RmId){
+ 
+    //curl実行
+    $ch = curl_init("https://api.line.me/v2/bot/room/".$RmId."/member/".$userId);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         'Content-Type: application/json; charser=UTF-8',
