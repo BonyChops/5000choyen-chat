@@ -80,7 +80,7 @@ if(($comPos = strpos($message_text,"!5cho")) !== FALSE){
     $response_format_text = [[
         "type"=> "image",
         "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-        "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
+        "previewImageUrl"=> "https://i.imgur.com/".$imgId."l.png"
     ]];
     if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
     if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
@@ -108,7 +108,7 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
     $response_format_text = [[
         "type"=> "image",
         "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-        "previewImageUrl"=> "https://i.imgur.com/".$imgId."m.png"
+        "previewImageUrl"=> "https://i.imgur.com/".$imgId."l.png"
     ]];
     if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
     if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
