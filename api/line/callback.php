@@ -90,6 +90,7 @@ if(($comPos = strpos($message_text,"!5cho")) !== FALSE){
 }
 if(($comPos = strpos($message_text,"!spc")) !== FALSE){
     $userInfo = getUserInfo($accesstoken, $userId);
+    file_put_contents(__DIR__."/../../test.json",json_encode($userInfo));
     $userName = $userInfo["displayName"];
     $iconURL = $userInfo["pictureUrl"];
     file_put_contents(__DIR__."/../../docs/userIcon.png",file_get_contents($iconURL));
@@ -204,14 +205,6 @@ function pushing_messages($accessToken, $userId, $response_format_text){
 }
 
 function getUserInfo($accessToken, $userId){
-    //レスポンスフォーマット
-   
- 
-    //ポストデータ
-    $post_data = [
-        "to" => $userId,
-        "messages" => $response_format_text
-    ];
  
     //curl実行
     $ch = curl_init("https://api.line.me/v2/bot/profile/".$userId);
