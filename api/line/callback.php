@@ -120,7 +120,7 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
         if(ctype_digit($command)){
             
         }else{
-            Generate_SPC(-1, $userName, $command);
+            Generate_SPC(-1, $userName, trim($command));
         }
         
     }
