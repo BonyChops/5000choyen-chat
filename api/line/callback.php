@@ -94,6 +94,42 @@ if(($comPos = strpos($message_text,"!5cho")) !== FALSE){
     unlink(__DIR__."/../../result.png");
     exit;
 }
+
+if(($comPos = strpos($message_text,"!spc2")) !== FALSE){
+    if(!isset($roomType)){
+        $userInfo = json_decode(getUserInfo($accesstoken, $userId), true);
+    }else{
+        if($roomType == "group"){
+            $userInfo = json_decode(getGroupUserInfo($accesstoken, $userId, $RmId), true);
+            file_put_contents(__DIR__."/../../docs/userIcon22.json",json_encode($userInfo));
+        }
+        if($roomType == "room"){
+            $userInfo = json_decode(getRoomUserInfo($accesstoken, $userId, $RmId), true);
+        }
+        
+    }
+    $userName = $userInfo["displayName"];
+    $iconURL = $userInfo["pictureUrl"];
+    if(strpos($message_text,"/") !== FALSE){
+        $command = substr($message_text, $comPos + 4);
+        list($price,$comment) = explode('/',$command);
+        $response_format_text =Generate_SPC_flex($price, $userName, $comment, $iconURL);
+    }else{
+        $command = substr($message_text, $comPos + 4);
+        if(is_numeric($command)){
+            $response_format_text =Generate_SPC_flex($command, $userName,"", $iconURL);
+        }else{
+            $response_format_text =Generate_SPC_flex(-1, $userName, trim($command), $iconURL);
+        }
+        
+    }
+    if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
+    if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    exit;
+}
+
+
 if(($comPos = strpos($message_text,"!spc")) !== FALSE){
     if(!isset($roomType)){
         $userInfo = json_decode(getUserInfo($accesstoken, $userId), true);
@@ -139,39 +175,6 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
     exit;
 }
 
-if(($comPos = strpos($message_text,"!spc2")) !== FALSE){
-    if(!isset($roomType)){
-        $userInfo = json_decode(getUserInfo($accesstoken, $userId), true);
-    }else{
-        if($roomType == "group"){
-            $userInfo = json_decode(getGroupUserInfo($accesstoken, $userId, $RmId), true);
-            file_put_contents(__DIR__."/../../docs/userIcon22.json",json_encode($userInfo));
-        }
-        if($roomType == "room"){
-            $userInfo = json_decode(getRoomUserInfo($accesstoken, $userId, $RmId), true);
-        }
-        
-    }
-    $userName = $userInfo["displayName"];
-    $iconURL = $userInfo["pictureUrl"];
-    if(strpos($message_text,"/") !== FALSE){
-        $command = substr($message_text, $comPos + 4);
-        list($price,$comment) = explode('/',$command);
-        $response_format_text =Generate_SPC_flex($price, $userName, $comment, $iconURL);
-    }else{
-        $command = substr($message_text, $comPos + 4);
-        if(is_numeric($command)){
-            $response_format_text =Generate_SPC_flex($command, $userName,"", $iconURL);
-        }else{
-            $response_format_text =Generate_SPC_flex(-1, $userName, trim($command), $iconURL);
-        }
-        
-    }
-    if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
-    if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
-    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
-    exit;
-}
 
 if((($sourceType != "group")&&($sourceType != "room"))){
     
