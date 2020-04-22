@@ -1,5 +1,10 @@
 {
     "discord": {
-        "token": "***"
+        "ficho": {
+            "token": "***"
+        },
+        "spc": {
+            "token": "***"
+        }
     }
 }

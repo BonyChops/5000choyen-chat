@@ -21,11 +21,11 @@ const execWait = (cmd) => {
 }
 
 client.on('message', msg => {
-    if(msg.content.indexOf('!5cho') !== -1){
+    if(msg.content.indexOf('!spc') !== -1){
         //console.log('kusa2');
         msg.channel.startTyping();
         //console.log('kusa');
-        output = execSync('php '+__dirname+'/analyze_spc.php "'+msg.content+'"');
+        output = execSync('php '+__dirname+'/analyze.php "'+msg.content+'"');
         console.log(output);
         const jsonObject = JSON.parse(fs.readFileSync(path.resolve(__dirname, './imgur_url.json'), 'utf8'));
         console.log(jsonObject.url);
@@ -49,5 +49,5 @@ process.on('SIGINT', function() {
 });
 const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../config.json'), 'utf8'));
 console.log(config.discord.token);
-client.login(config.discord.ficho.token); // botログイン
+client.login(config.discord.spc.token); // botログイン
 
