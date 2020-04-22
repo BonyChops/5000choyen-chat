@@ -33,9 +33,9 @@ function Generate_SPC_flex($price, $username, $comment = "", $iconURL){
   $price = number_format((int)trim($price));
 
   $txt_color = preg_replace("/#/", "", $colorcode);
-  $array_colorcode["red"] = hexdec(substr($colorcode, 0, 2))*0.7;
-  $array_colorcode["green"] = hexdec(substr($colorcode, 2, 2))*0.7;
-  $array_colorcode["blue"] = hexdec(substr($colorcode, 4, 2))*0.7;
+  $array_colorcode["red"] = (int)hexdec(substr($colorcode, 0, 2))*0.7;
+  $array_colorcode["green"] = (int)hexdec(substr($colorcode, 2, 2))*0.7;
+  $array_colorcode["blue"] = (int)hexdec(substr($colorcode, 4, 2))*0.7;
   $username_color = rgb2hex( [ $array_colorcode["red"], $array_colorcode["green"], $array_colorcode["blue"] ] );
   if ($comment != ""){
     $format = [
