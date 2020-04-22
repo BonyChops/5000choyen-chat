@@ -8,6 +8,10 @@ function Generate_SPC($price, $username, $comment){
 }
 
 function Generate_SPC_flex($price, $username, $comment = "", $iconURL){
+  $preset_money = [100,200,500,1000,2000,5000,8000,9000,10000];
+  if ($price == -1){
+    $price = $preset_money[rand(0,count($preset_money))];
+  }
   $colors      = ["#134a9e","#00b8d4","#00bfa5","#ffb300","#e65100","#c2185b","#d00000"];
   $base_colors = ["#134a9e","#00e5ff","#1de9b6","#ffca28","#f57c00","#e91e63","#e62117"];
   $txt_colors  = ["#FFFFFF","#000000","#000000","#000000","#000000","#FFFFFF","#FFFFFF"];
