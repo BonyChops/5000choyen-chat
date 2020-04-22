@@ -26,7 +26,7 @@ client.on('message', msg => {
         msg.channel.startTyping();
         //console.log('kusa');
         console.log(msg.author.username);
-        console.log(msg.author.defaultAvatarURL);
+        console.log(msg.author.avatarURL());
         output = execSync('php '+__dirname+'/analyze_spc.php "'+msg.content+'"');
         console.log(output);
         const jsonObject = JSON.parse(fs.readFileSync(path.resolve(__dirname, './imgur_url.json'), 'utf8'));
