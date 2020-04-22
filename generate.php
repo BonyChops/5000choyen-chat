@@ -32,7 +32,7 @@ function Generate_SPC_flex($price, $username, $comment = "", $iconURL){
   if($price < 200) $comment = "";
   $price = number_format((int)trim($price));
 
-  $txt_color = preg_replace("/#/", "", $colorcode);
+  $colorcode = preg_replace("/#/", "", $txt_color);
   $array_colorcode["red"] = (int)hexdec(substr($colorcode, 0, 2))*0.7;
   $array_colorcode["green"] = (int)hexdec(substr($colorcode, 2, 2))*0.7;
   $array_colorcode["blue"] = (int)hexdec(substr($colorcode, 4, 2))*0.7;
@@ -67,7 +67,8 @@ function Generate_SPC_flex($price, $username, $comment = "", $iconURL){
                   [
                     "type"=> "span",
                     "text"=> $username."\n",
-                    "size"=> "md"
+                    "size"=> "md",
+                    "color"=> $username_color
                   ],
                   [
                     "type"=> "span",
