@@ -3,20 +3,11 @@ require_once(__DIR__.'/../../generate.php');
 require_once(__DIR__.'/../imgur/upload.php');
 
 $message_text =  $argv[1];
+$userName =  $argv[2];
+$iconURL =  $argv[3];
+
 $comPos = 0;
 if(($comPos = strpos($message_text,"!spc")) !== FALSE){
-    if(!isset($roomType)){
-        $userInfo = json_decode(getUserInfo($accesstoken, $userId), true);
-    }else{
-        if($roomType == "group"){
-            $userInfo = json_decode(getGroupUserInfo($accesstoken, $userId, $RmId), true);
-            file_put_contents(__DIR__."/../../docs/userIcon22.json",json_encode($userInfo));
-        }
-        if($roomType == "room"){
-            $userInfo = json_decode(getRoomUserInfo($accesstoken, $userId, $RmId), true);
-        }
-        
-    }
     $userName = $userInfo["displayName"];
     $iconURL = $userInfo["pictureUrl"];
     file_put_contents(__DIR__."/../../docs/userIcon.png",file_get_contents($iconURL));
