@@ -150,13 +150,13 @@ function Generate_SPC_flex($price, $username, $comment = "", $iconURL){
   if($comment == ""){
     $comment = "￥".$price."Super Chatを送信しました！";
   }
-  return [
+  return [[
     "type"=> "flex",
     "altText"=> $username.": ".$comment,
     "contents"=> [
       $format
     ]
-  ];
+  ]];
 }
 
 

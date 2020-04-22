@@ -113,13 +113,13 @@ if(($comPos = strpos($message_text,"!spc2")) !== FALSE){
     if(strpos($message_text,"/") !== FALSE){
         $command = substr($message_text, $comPos + 4);
         list($price,$comment) = explode('/',$command);
-        $response_format_text =Generate_SPC_flex($price, $userName, $comment, $iconURL);
+        $response_format_text = Generate_SPC_flex($price, $userName, $comment, $iconURL);
     }else{
         $command = substr($message_text, $comPos + 4);
         if(is_numeric($command)){
-            $response_format_text =Generate_SPC_flex($command, $userName,"", $iconURL);
+            $response_format_text = Generate_SPC_flex($command, $userName,"", $iconURL);
         }else{
-            $response_format_text =Generate_SPC_flex(-1, $userName, trim($command), $iconURL);
+            $response_format_text = Generate_SPC_flex(-1, $userName, trim($command), $iconURL);
         }
         
     }
