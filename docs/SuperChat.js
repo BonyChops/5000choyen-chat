@@ -80,7 +80,7 @@ function iconDraw(){
   var r = 40;
   context.arc( r+20, h/2, r, 0 * Math.PI / 180, 360 * Math.PI / 180 ) ;
   context.clip(); 
-  var output2 = fs.readFileSync(__dirname + '/image.png');
+  var output2 = fs.readFileSync(__dirname + '/userIcon.png');
   var img = new Canvas.Image; // Create a new Image
   img.src = output2;
   context.drawImage(img, 0, 0, img.width, img.height, 20,h/2-r, r*2,r*2);

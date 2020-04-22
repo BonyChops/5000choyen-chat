@@ -11,6 +11,7 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
     $filepath = pathinfo($iconURL);
     $iconURL = $filepath['dirname'].'/'.$filepath['filename'].'png';
     file_put_contents(__DIR__."/../../docs/userIcon.png",file_get_contents($iconURL));
+    sleep(0.5);
     if(strpos($message_text,"/") !== FALSE){
         $command = substr($message_text, $comPos + 4);
         list($price,$comment) = explode('/',$command);
