@@ -153,9 +153,7 @@ function Generate_SPC_flex($price, $username, $comment = "", $iconURL){
   return [[
     "type"=> "flex",
     "altText"=> $username.": ".$comment,
-    "contents"=> [
-      $format
-    ]
+    "contents"=> $format
   ]];
 }
 
