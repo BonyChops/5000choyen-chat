@@ -68,7 +68,7 @@ function Generate_SPC_flex($price, $username, $comment = "", $iconURL){
                     "type"=> "span",
                     "text"=> $username."\n",
                     "size"=> "md",
-                    "color"=> $username_color
+                    "color"=> $txt_color
                   ],
                   [
                     "type"=> "span",
