@@ -111,11 +111,11 @@ if(($comPos = strpos($message_text,"!spc2")) !== FALSE){
     $userName = $userInfo["displayName"];
     $iconURL = $userInfo["pictureUrl"];
     if(strpos($message_text,"/") !== FALSE){
-        $command = substr($message_text, $comPos + 4);
+        $command = substr($message_text, $comPos + 5);
         list($price,$comment) = explode('/',$command);
         $response_format_text = Generate_SPC_flex($price, $userName, $comment, $iconURL);
     }else{
-        $command = substr($message_text, $comPos + 4);
+        $command = substr($message_text, $comPos + 5);
         if(is_numeric($command)){
             $response_format_text = Generate_SPC_flex($command, $userName,"", $iconURL);
         }else{
