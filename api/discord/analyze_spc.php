@@ -8,8 +8,6 @@ $iconURL =  $argv[3];
 
 $comPos = 0;
 if(($comPos = strpos($message_text,"!spc")) !== FALSE){
-    $userName = $userInfo["displayName"];
-    $iconURL = $userInfo["pictureUrl"];
     file_put_contents(__DIR__."/../../docs/userIcon.png",file_get_contents($iconURL));
     if(strpos($message_text,"/") !== FALSE){
         $command = substr($message_text, $comPos + 4);
