@@ -29,6 +29,7 @@ function Generate_SPC_flex($price, $username, $comment = "", $iconURL){
     $base_color = $base_colors[count($n)];
     $txt_color = $txt_colors[count($n)];
   }
+  if($price < 200) $comment = "";
   $price = number_format((int)trim($price));
   if ($comment != ""){
     $format = [
