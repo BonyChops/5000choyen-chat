@@ -27,6 +27,6 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
     }
     if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
     if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
-    //unlink(__DIR__."/../../docs/userIcon.png");
+    unlink(__DIR__."/../../docs/userIcon.png");
     exit;
 }
