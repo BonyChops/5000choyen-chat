@@ -27,7 +27,12 @@ client.on('message', msg => {
         //console.log('kusa');
         console.log(msg.author.username);
         console.log(msg.author.avatarURL());
-        output = execSync('php '+__dirname+'/analyze_spc.php "'+msg.content+'" "'+msg.author.username+'" "'+msg.author.avatarURL()+'"');
+        if(msg.author.avatarURL() != null){
+            var userIconURL = msg.author.avatarURL();
+        }else{
+            var userIconURL = msg.author.defaultAvatarURL;
+        }
+        output = execSync('php '+__dirname+'/analyze_spc.php "'+msg.content+'" "'+msg.author.username+'" "'+userIconURL+'"');
         console.log(output);
         const jsonObject = JSON.parse(fs.readFileSync(path.resolve(__dirname, './imgur_url.json'), 'utf8'));
         console.log(jsonObject.url);
