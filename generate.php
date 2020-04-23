@@ -160,7 +160,7 @@ function Generate_SPC_flex($price, $username, $comment = "", $iconURL){
     ];
   }
   if($comment == ""){
-    $comment = "￥".$price."Super Chatを送信しました！";
+    $comment = "￥".$price." Super Chatを送信しました！";
   }
   return [[
     "type"=> "flex",

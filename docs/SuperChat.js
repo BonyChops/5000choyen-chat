@@ -43,18 +43,10 @@ console.log(rand(0,preset_money.length));
 textbox["name"] = process.argv[2];
 textbox["comment"] = process.argv[4];
 
-
-
-
-
-
-
 reset();
 saveCanvas();
 
-
 function reset() {
-  
   var price = textbox["money"];
   const colors      = ["#134a9e","#00b8d4","#00bfa5","#ffb300","#e65100","#c2185b","#d00000"];
   const base_colors = ["#134a9e","#00e5ff","#1de9b6","#ffca28","#f57c00","#e91e63","#e62117"];

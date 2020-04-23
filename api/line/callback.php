@@ -95,7 +95,6 @@ if(($comPos = strpos($message_text,"!5cho")) !== FALSE){
     exit;
 }
 
-
 if(($comPos = strpos($message_text,"!spc2")) !== FALSE){
     if(!isset($roomType)){
         $userInfo = json_decode(getUserInfo($accesstoken, $userId), true);
