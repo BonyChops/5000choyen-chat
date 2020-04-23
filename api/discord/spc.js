@@ -32,7 +32,9 @@ client.on('message', msg => {
         }else{
             var userIconURL = msg.author.defaultAvatarURL;
         }
-        output = execSync('php '+__dirname+'/analyze_spc.php "'+msg.content+'" "'+msg.author.username+'" "'+userIconURL+'"');
+        let member = msg.guild.member(msg.author);
+        let nickname = member ? member.displayName : msg.author.username;
+        output = execSync('php '+__dirname+'/analyze_spc.php "'+msg.content+'" "'+nickname+'" "'+userIconURL+'"');
         console.log(output);
         const jsonObject = JSON.parse(fs.readFileSync(path.resolve(__dirname, './imgur_url.json'), 'utf8'));
         console.log(jsonObject.url);
