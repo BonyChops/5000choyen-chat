@@ -179,7 +179,20 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
 
 
 if((($sourceType != "group")&&($sourceType != "room"))){
-    
+    if($sendType == "join"){
+        $response_format_text = [[
+            "type" => "text",
+            "text" => "5000兆円ほしい！！！\nコマンドは以下"
+        ],[
+            "type" => "text",
+            "text" => "!5cho 5000兆円/欲しい！"
+        ],[
+            "type" => "text",
+            "text" => "!spc 金額/(メッセージ)"
+        ]];
+        $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+        exit;
+    }
 }
 
 if((strpos($message_text,"/unchi") !== FALSE)){
