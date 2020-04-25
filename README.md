@@ -14,4 +14,5 @@ Use 5000-choyen like font in your chat
 
 # Package
 ### [abraham/twitteroauth](https://github.com/abraham/twitteroauth)
+### [restcord/restcord](https://github.com/restcord/restcord)
 ### [MeCab](https://taku910.github.io/mecab/)

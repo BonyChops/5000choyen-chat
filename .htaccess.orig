@@ -1,0 +1,4 @@
+# AccessControl IP/HOST
+order allow,deny
+deny from all
+deny from 192.168.1.10
