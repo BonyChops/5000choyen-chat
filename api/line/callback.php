@@ -180,7 +180,7 @@ if(($comPos = strpos($message_text,"!avicii")) !== FALSE){
     $response_format_text = [[
         "type"=> "flex",
         "altText"=> "◢ ◤ Avicii",
-        "contents"=>avicii('https://bonychops.com/experiment/5000choyen-bot/randomAvicii.php')
+        "contents"=>avicii('https://bonychops.com/experiment/5000choyen-chat/randomAvicii.php')
     ]];
     $result = sending_messages($accesstoken, $replyToken, $response_format_text);
 }
