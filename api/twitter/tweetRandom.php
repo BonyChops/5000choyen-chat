@@ -36,7 +36,6 @@ if(!isset($argv[2])){
 }
 
 
-Generate($str, $str2."！");
 if(!file_exists(__DIR__."/../../result.png")){
     printf("Error! File not exist(".__DIR__."/../../result.png".")");
 }else{
