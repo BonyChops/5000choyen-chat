@@ -35,8 +35,7 @@ if(!isset($argv[2])){
     Generate($argv[1], $argv[2]);
 }
 
-$str = chooseTweet($objTwitterConection,$objTwitterConection2,"",false);
-$str2 = chooseVerb($objTwitterConection,$objTwitterConection2,"",false);
+
 Generate($str, $str2."！");
 if(!file_exists(__DIR__."/../../result.png")){
     printf("Error! File not exist(".__DIR__."/../../result.png".")");
