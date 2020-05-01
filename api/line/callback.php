@@ -190,7 +190,7 @@ if(($comPos = strpos($message_text,"!avicii")) !== FALSE){
     $response_format_text = [[
         "type"=> "flex",
         "altText"=> "◢ ◤ Avicii",
-        "contents"=>avicii($urls(rand(0, count($urls))))
+        "contents"=>avicii($urls[rand(0, count($urls))])
     ]];
     $result = sending_messages($accesstoken, $replyToken, $response_format_text);
 }
