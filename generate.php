@@ -169,6 +169,33 @@ function Generate_SPC_flex($price, $username, $comment = "", $iconURL){
   ]];
 }
 
+function avicii($url){
+  return [
+    "type"=> "bubble",
+    "body"=> [
+      "type"=> "box",
+      "layout"=> "horizontal",
+      "contents"=> [
+        [
+          "type"=> "text",
+          "text"=> "◢ ◤",
+          "gravity"=> "center",
+          "align"=> "center",
+          "color"=> "#FFFFFF",
+          "size"=> "xxl",
+          "action"=> [
+            "type"=> "uri",
+            "label"=> "action",
+            "uri"=> $url
+          ]
+        ]
+      ],
+      "backgroundColor"=> "#000000",
+      "height"=> "200px"
+    ]
+];
+}
+
 function rgb2hex ( $rgb ) {
 	return "#" . implode( "", array_map( function( $value ) {
 		return substr( "0" . dechex( $value ), -2 ) ;

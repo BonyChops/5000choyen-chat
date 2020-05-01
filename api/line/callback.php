@@ -166,7 +166,6 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
         }else{
             $response_format_text = Generate_SPC_flex(-1, $userName, trim($command), $iconURL);
         }
-        
     }
     if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
     if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
@@ -176,7 +175,25 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
 }
 
 
-
+if(($comPos = strpos($message_text,"!avicii")) !== FALSE){
+    $urls = [
+        'https://www.youtube.com/watch?v=IcrbM1l_BoI',
+        'https://www.youtube.com/watch?v=cHHLHGNpCSA',
+        'https://www.youtube.com/watch?v=UtF6Jej8yb4',
+        'https://www.youtube.com/watch?v=YxIiPLVR6NA',
+        'https://www.youtube.com/watch?v=_ovdm2yX4MA',
+        'https://www.youtube.com/watch?v=5y_KJAg8bHI',
+        'https://www.youtube.com/watch?v=JDglMK9sgIQ',
+        'https://www.youtube.com/watch?v=6Cp6mKbRTQY',
+        'https://www.youtube.com/watch?v=-ncIVUXZla8',
+    ];
+    $response_format_text = [[
+        "type"=> "flex",
+        "altText"=> "◢ ◤ Avicii",
+        "contents"=>avicii($urls(rand(0, count($urls))))
+    ]];
+    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+}
 
 if((($sourceType != "group")&&($sourceType != "room"))){
     if($sendType == "join"){
