@@ -192,9 +192,11 @@ function avicii($url){
       ],
       "backgroundColor"=> "#000000",
       "height"=> "200px",
-      "type"=> "uri",
-      "label"=> "action",
-      "uri"=> $url
+      "action" => [
+        "type"=> "uri",
+        "label"=> "action",
+        "uri"=> $url
+      ]
     ]
 ];
 }
