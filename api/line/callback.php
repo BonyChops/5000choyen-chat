@@ -5,7 +5,7 @@ require_once(__DIR__.'/../../generate.php');
 require_once(__DIR__.'/../imgur/upload.php');
 require_once(__DIR__.'/../../vendor/autoload.php');
 
- /* 
+ /*
 //インポート
 use Abraham\TwitterOAuth\TwitterOAuth;
 
@@ -28,7 +28,7 @@ $objTwitterConection = new TwitterOAuth
 chdir(__DIR__);
 $json_string = file_get_contents('php://input');
 $json_object = json_decode($json_string);
- 
+file_put_contents("rec_debug.json",$json_string);
 //取得データ
 $replyToken = $json_object->{"events"}[0]->{"replyToken"};        //返信用トークン
 $userId =  $json_object->{"events"}[0]->{"source"}->{"userId"};
@@ -36,12 +36,12 @@ $sourceType =  $json_object->{"events"}[0]->{"source"}->{"type"};
 if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})){
     $RmId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
     $roomType = "group";
-} 
-if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})){ 
+}
+if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})){
     $RmId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
     $roomType = "room";
 }
-$sendType = $json_object->{"events"}[0]->{"type"}; 
+$sendType = $json_object->{"events"}[0]->{"type"};
 $message_type = $json_object->{"events"}[0]->{"message"}->{"type"};    //メッセージタイプ
 if ($message_type == "text"){
     $message_text = $json_object->{"events"}[0]->{"message"}->{"text"};    //メッセージ内容
@@ -106,7 +106,7 @@ if(($comPos = strpos($message_text,"!spc2")) !== FALSE){
         if($roomType == "room"){
             $userInfo = json_decode(getRoomUserInfo($accesstoken, $userId, $RmId), true);
         }
-        
+
     }
     $userName = $userInfo["displayName"];
     $iconURL = $userInfo["pictureUrl"];
@@ -122,7 +122,7 @@ if(($comPos = strpos($message_text,"!spc2")) !== FALSE){
         }else{
             Generate_SPC(-1, $userName, trim($command));
         }
-        
+
     }
     $img = file_get_contents(__DIR__."/../../result.png");
     $imgResult =  uploadImgur(base64_encode($img));
@@ -151,7 +151,7 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
         if($roomType == "room"){
             $userInfo = json_decode(getRoomUserInfo($accesstoken, $userId, $RmId), true);
         }
-        
+
     }
     $userName = $userInfo["displayName"];
     $iconURL = $userInfo["pictureUrl"];
@@ -232,19 +232,19 @@ if(($sourceType == "group")||($sourceType == "room")){
 
 //どれにも該当しない場合
 
-  
+
 
 //echo $result;
 function sending_messages($accessToken, $replyToken, $response_format_text){
     //レスポンスフォーマット
-   
- 
+
+
     //ポストデータ
     $post_data = [
         "replyToken" => $replyToken,
         "messages" => $response_format_text
     ];
- 
+
     //curl実行
     $ch = curl_init("https://api.line.me/v2/bot/message/reply");
     curl_setopt($ch, CURLOPT_POST, true);
@@ -262,14 +262,14 @@ function sending_messages($accessToken, $replyToken, $response_format_text){
 
 function pushing_messages($accessToken, $userId, $response_format_text){
     //レスポンスフォーマット
-   
- 
+
+
     //ポストデータ
     $post_data = [
         "to" => $userId,
         "messages" => $response_format_text
     ];
- 
+
     //curl実行
     $ch = curl_init("https://api.line.me/v2/bot/message/push");
     curl_setopt($ch, CURLOPT_POST, true);
@@ -286,7 +286,7 @@ function pushing_messages($accessToken, $userId, $response_format_text){
 }
 
 function getUserInfo($accessToken, $userId){
- 
+
     //curl実行
     $ch = curl_init("https://api.line.me/v2/bot/profile/".$userId);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -300,7 +300,7 @@ function getUserInfo($accessToken, $userId){
 }
 
 function getGroupUserInfo($accessToken, $userId, $RmId){
- 
+
     //curl実行
     $ch = curl_init("https://api.line.me/v2/bot/group/".$RmId."/member/".$userId);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -314,7 +314,7 @@ function getGroupUserInfo($accessToken, $userId, $RmId){
 }
 
 function getRoomUserInfo($accessToken, $userId, $RmId){
- 
+
     //curl実行
     $ch = curl_init("https://api.line.me/v2/bot/room/".$RmId."/member/".$userId);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -328,7 +328,7 @@ function getRoomUserInfo($accessToken, $userId, $RmId){
 }
 
 function getUserIcon($url){
-    
+
     //curl実行
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

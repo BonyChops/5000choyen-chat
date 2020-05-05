@@ -20,6 +20,7 @@ function chooseTweet($objTwitterConection, $objTwitterConection2,$custom = "", $
     if($displayMessage == true){
         printf($cntWord."\n");
     }
+
     if(!isset($LastID)){
         $searchResult = $objTwitterConection2->get("search/tweets",["q" => $cntWord, "count" => 100,"lang" => "ja"]);
     }else{
@@ -34,7 +35,7 @@ function chooseTweet($objTwitterConection, $objTwitterConection2,$custom = "", $
             if($value2 != 'EOS'){
                 list($s,$s2) = sscanf($value2,"%s %s");
 
-                list($type,$dump,$dump,$dump,$dump,$dump,$default,$dump,$dump) = explode(",", $s2); 
+                list($type,$dump,$dump,$dump,$dump,$dump,$default,$dump,$dump) = explode(",", $s2);
 
                 if($type == "名詞"){
                     printf($default."\n");
@@ -86,7 +87,7 @@ function chooseVerb($objTwitterConection, $objTwitterConection2,$custom = "", $l
             if($value2 != 'EOS'){
                 list($s,$s2) = sscanf($value2,"%s %s");
 
-                list($type,$dump,$dump,$dump,$dump,$dump,$default,$dump,$dump) = explode(",", $s2); 
+                list($type,$dump,$dump,$dump,$dump,$dump,$default,$dump,$dump) = explode(",", $s2);
 
                 if($type == "動詞"){
                     printf($default."\n");
@@ -119,22 +120,22 @@ function processTweet($text) {
   function deleteUser($text) {
     return preg_replace('/@.*\s/', '', $text);
   }
-  
+
   // 改行をスペースに変換
   function deleteNewLine($text) {
     return str_replace(array("\r\n", "\r", "\n"), ' ', $text);
   }
-  
+
   // http引用を消す
   function deleteUrl($text) {
     return preg_replace('/(https?)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/', '', $text);
   }
-  
+
   // ハッシュタグ（#～）を消す
   function deleteHashtag($text) {
     return preg_replace('/#.*/', '', $text);
   }
-  
+
   // 変換不能文字を消す
   function deleteNonUtf8($text) {
     //reject overly long 2 byte sequences, as well as characters above U+10000 and replace with ?
@@ -145,13 +146,13 @@ function processTweet($text) {
       '|[\xC2-\xDF]((?![\x80-\xBF])|[\x80-\xBF]{2,})'.
       '|[\xE0-\xEF](([\x80-\xBF](?![\x80-\xBF]))|(?![\x80-\xBF]{2})|[\x80-\xBF]{3,})/S',
       '', $text );
-  
+
     //reject overly long 3 byte sequences and UTF-16 surrogates and replace with ?
     $text = preg_replace(
       '/\xE0[\x80-\x9F][\x80-\xBF]'.
       '|\xED[\xA0-\xBF][\x80-\xBF]/S',
       '', $text );
-  
+
     return $text;
   }
 
