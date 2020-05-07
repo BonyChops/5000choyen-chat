@@ -243,7 +243,7 @@ function Generate_tex($text, $mc = false){
     if (!exec('cd '.__DIR__.' && pandoc tmp.md -o tmp2.tex',$array)) {
       return FALSE;
     }
-    $text = file_get_contents('tmp2.tex');
+    $text = file_get_contents(__DIR__.'/tmp2.tex');
   }
 
   file_put_contents(__DIR__."/tmp.tex", $header.$text.$footer);
