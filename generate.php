@@ -243,7 +243,7 @@ function Generate_tex($text, $mc = false){
   $header_md = "\pagenumbering{gobble}\n\n";
   if($mc){
     file_put_contents(__DIR__.'/tmp.md', $header_md.trim($command));
-    exec('timeout 10 pandoc '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp.pdf --pdf-engine=lualatex -V documentclass=bxjsarticle -V classoption=pandoc',$array,$return);
+    exec('timeout 15 pandoc '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp.pdf --pdf-engine=lualatex -V documentclass=ltjarticle',$array,$return);
     unlink(__DIR__.'/tmp.md');
     if (!$return) {
       echo 'good';
