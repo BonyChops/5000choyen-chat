@@ -229,7 +229,7 @@ function Generate_tex($text){
     lineskip=-0.5ex
   }
   %ここまでソースコードの表示に関する設定
-
+  \pagestyle{empty} % すべてのページ番号を消去
   \usepackage{pdfpages}
   \usepackage{amssymb}
   \usepackage{amsmath}
@@ -240,7 +240,7 @@ function Generate_tex($text){
   \end{document}';
   file_put_contents(__DIR__."/tmp.tex", $header.$text.$footer);
   exec('cd '.__DIR__.' && ptex2pdf -ot -interaction="nonstopmode" -l tmp.tex');
-  exec('cd '.__DIR__.' && pdftoppm -l 1 -png '.__DIR__.'/tmp.pdf image && convert input '.__DIR__.'/image-1.png -trim '.__DIR__.'/tmp.png');
+  exec('cd '.__DIR__.' && pdftoppm -r 1000 -l 1 -png '.__DIR__.'/tmp.pdf image && convert input '.__DIR__.'/image-1.png -trim '.__DIR__.'/tmp.png');
 }
 
 
