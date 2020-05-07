@@ -241,7 +241,10 @@ function Generate_tex($text, $mc = false){
   if($mc){
     file_put_contents(__DIR__.'/tmp.md', trim($text));
     exec('pandoc '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp2.tex',$array,$return);
-    if ($return !== FALSE) {
+    if (!$return) {
+      echo 'good';
+    }else{
+      echo "Nah";
       if(file_exists(__DIR__.'/tmp2.tex')) unlink(__DIR__.'/tmp2.tex');
       return FALSE;
     }
