@@ -239,7 +239,7 @@ function Generate_tex($text, $mc = false){
   $footer = '
   \end{document}';
   if($mc){
-    file_put_contents('tmp.md', trim($text));
+    file_put_contents(__DIR__.'/tmp.md', trim($text));
     if (!exec('cd '.__DIR__.' && pandoc tmp.md -o tmp2.tex',$array)) {
       return FALSE;
     }
