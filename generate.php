@@ -240,6 +240,7 @@ function Generate_tex($text, $mc = false){
   \end{document}';
   if($mc){
     file_put_contents(__DIR__.'/tmp.md', trim($text));
+    if(file_exists(__DIR__.'/tmp3.tex')) unlink(__DIR__.'/tmp3.tex');
     exec('pandoc '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp3.tex',$array,$return);
     if (!$return) {
       echo 'good';
@@ -252,6 +253,7 @@ function Generate_tex($text, $mc = false){
     echo $text;
     echo 'grass';
     unlink(__DIR__.'/tmp.md');
+    unlink(__DIR__.'/tmp3.md');
   }
 
   file_put_contents(__DIR__."/tmp.tex", $header.$text.$footer);
