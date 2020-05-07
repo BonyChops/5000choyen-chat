@@ -242,36 +242,32 @@ function Generate_tex($text, $mc = false){
   \end{document}';
   if($mc){
     file_put_contents(__DIR__.'/tmp.md', trim($command));
-    if(file_exists(__DIR__.'/tmp3.tex')) unlink(__DIR__.'/tmp3.tex');
-    exec('timeout 10 pandoc -r markdown-auto_identifiers -w latex '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp3.tex',$array,$return);
+    exec('timeout 10 pandoc '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp3.pdf',$array,$return);
+    unlink(__DIR__.'/tmp.md');
     if (!$return) {
       echo 'good';
+      generateImg();
+      return TRUE;
     }else{
-      echo "Nah";
-      if(file_exists(__DIR__.'/tmp3.tex')) unlink(__DIR__.'/tmp3.tex');
       return FALSE;
     }
-    $command = file_get_contents(__DIR__.'/tmp3.tex');
-    echo $command;
-    echo 'grass';
-    unlink(__DIR__.'/tmp.md');
-    unlink(__DIR__.'/tmp3.tex');
   }
   if(file_exists(__DIR__."/tmp.tex")) unlink(__DIR__."/tmp.tex");
   file_put_contents(__DIR__."/tmp.tex", $header.$command.$footer);
   if (exec('cd '.__DIR__.' && timeout 10 ptex2pdf -ot -interaction="nonstopmode" -l tmp.tex 2> error.log',$array)) {
-    exec('cd '.__DIR__.' && pdftoppm -r 300 -l 1 -png '.__DIR__.'/tmp.pdf image && convert input '.__DIR__.'/image-1.png -trim '.__DIR__.'/result.png');
-    foreach (glob(__DIR__.'/tmp*') as$val ) {
-      unlink($val);
-  }
-    unlink(__DIR__.'/image-1.png');
+    generateImg();
     return TRUE;
   }else{
     return FALSE;
   }
-
 }
-
+function generateImg(){
+  exec('cd '.__DIR__.' && pdftoppm -r 300 -l 1 -png '.__DIR__.'/tmp.pdf image && convert input '.__DIR__.'/image-1.png -trim '.__DIR__.'/result.png');
+  foreach (glob(__DIR__.'/tmp*') as$val ) {
+    unlink($val);
+  }
+  unlink(__DIR__.'/image-1.png');
+}
 
 function rgb2hex ( $rgb ) {
 	return "#" . implode( "", array_map( function( $value ) {
