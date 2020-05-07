@@ -201,6 +201,33 @@ if(($comPos = strpos($message_text,"!tex")) !== FALSE){
     exit;
 }
 
+if(($comPos = strpos($message_text,"!mc")) !== FALSE){
+    $command = substr($message_text, $comPos + 3);
+    $result = Generate_tex(trim($command), true);
+
+    if($result){
+        $img = file_get_contents(__DIR__."/../../tmp.png");
+        $imgResult =  uploadImgur(base64_encode($img));
+        $imgId = $imgResult['data']['id'];
+        $response_format_text = [[
+            "type"=> "image",
+            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
+            "previewImageUrl"=> "https://i.imgur.com/".$imgId."l.png"
+        ]];
+    }else{
+        $response_format_text = [[
+            "type"=> "text",
+            "text"=> "あれ？www\nMarkdownミスってますけど？wwwwwwwwwwwwwwwwwww"
+        ]];
+    }
+
+    if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
+    if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    file_put_contents(__DIR__."/../../docs/result1234.json",$result);
+    exit;
+}
+
 if(($comPos = strpos($message_text,"!avicii")) !== FALSE){
 
     $response_format_text = [[
