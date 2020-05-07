@@ -1,3 +1,3 @@
 <?php
 include __DIR__.'/generate.php';
-Generate_tex('test', true);
+echo Generate_tex('test', true);
