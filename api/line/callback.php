@@ -217,7 +217,7 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
     }else{
         $response_format_text = [[
             "type"=> "text",
-            "text"=> "あれ？www\nMarkdownミスってますけど？wwwwwwwwwwwwwwwwwww"
+            "text"=> "ふぇぇ...そんなMarkdownわかんないよお..."
         ]];
     }
 
