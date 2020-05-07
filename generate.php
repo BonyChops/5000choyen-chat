@@ -241,15 +241,15 @@ function Generate_tex($text, $mc = false){
   if($mc){
     file_put_contents(__DIR__.'/tmp.md', trim($text));
     if (!exec('cd '.__DIR__.' && pandoc tmp.md -o tmp2.tex 2> error.log',$array)) {
+      if(file_exists(__DIR__.'/tmp2.tex')) unlink(__DIR__.'/tmp2.tex');
       return FALSE;
     }
     $text = file_get_contents(__DIR__.'/tmp2.tex');
-    unlink(__DIR__.'/tmp2.tex');
     unlink(__DIR__.'/tmp.md');
   }
 
   file_put_contents(__DIR__."/tmp.tex", $header.$text.$footer);
-  if (exec('cd '.__DIR__.' && ptex2pdf -ot -interaction="nonstopmode" -l tmp.tex',$array)) {
+  if (exec('cd '.__DIR__.' && ptex2pdf -ot -interaction="nonstopmode" -l tmp.tex 2> error.log',$array)) {
     exec('cd '.__DIR__.' && pdftoppm -r 300 -l 1 -png '.__DIR__.'/tmp.pdf image && convert input '.__DIR__.'/image-1.png -trim '.__DIR__.'/tmp.png');
     unlink(__DIR__.'/tmp.tex');
     unlink(__DIR__.'/tmp.pdf');

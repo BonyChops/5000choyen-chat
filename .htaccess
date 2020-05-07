@@ -1,3 +1,6 @@
 <Files ~ "\.json$">
   deny from all
 </Files>
+<Files ~ "\.log$">
+  deny from all
+</Files>
