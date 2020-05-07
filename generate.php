@@ -240,6 +240,7 @@ function Generate_tex($text, $mc = false){
   \end{document}';
   if($mc){
     file_put_contents(__DIR__.'/tmp.md', trim($text));
+    chmod(__DIR__.'/tmp.md', 0666);
     if (!exec('cd '.__DIR__.' && pandoc tmp.md -o tmp2.tex',$array)) {
       return FALSE;
     }
