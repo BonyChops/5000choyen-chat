@@ -202,6 +202,7 @@ function avicii($url){
 }
 
 function Generate_tex($text, $mc = false){
+  $command = $text;
   $header = '\documentclass[a4j, titlepage, dvipdfmx]{jarticle}
   \usepackage{float}
   \usepackage[dvipdfmx]{graphicx}
@@ -239,7 +240,7 @@ function Generate_tex($text, $mc = false){
   $footer = '
   \end{document}';
   if($mc){
-    file_put_contents(__DIR__.'/tmp.md', trim($text));
+    file_put_contents(__DIR__.'/tmp.md', trim($command));
     if(file_exists(__DIR__.'/tmp3.tex')) unlink(__DIR__.'/tmp3.tex');
     exec('pandoc '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp3.tex',$array,$return);
     if (!$return) {
@@ -249,14 +250,14 @@ function Generate_tex($text, $mc = false){
       if(file_exists(__DIR__.'/tmp3.tex')) unlink(__DIR__.'/tmp3.tex');
       return FALSE;
     }
-    $text = file_get_contents(__DIR__.'/tmp3.tex');
-    echo $text;
+    $command = file_get_contents(__DIR__.'/tmp3.tex');
+    echo $command;
     echo 'grass';
     unlink(__DIR__.'/tmp.md');
     unlink(__DIR__.'/tmp3.tex');
   }
   if(file_exists(__DIR__."/tmp.tex")) unlink(__DIR__."/tmp.tex");
-  file_put_contents(__DIR__."/tmp.tex", $header.$text.$footer);
+  file_put_contents(__DIR__."/tmp.tex", $header.$command.$footer);
   if (exec('cd '.__DIR__.' && timeout 20 ptex2pdf -ot -interaction="nonstopmode" -l tmp.tex 2> error.log',$array)) {
     exec('cd '.__DIR__.' && pdftoppm -r 300 -l 1 -png '.__DIR__.'/tmp.pdf image && convert input '.__DIR__.'/image-1.png -trim '.__DIR__.'/result.png');
     foreach (glob(__DIR__.'/tmp*') as$val ) {
