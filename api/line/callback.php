@@ -206,7 +206,7 @@ if(($comPos = strpos($message_text,"!mc")) !== FALSE){
     $result = Generate_tex(trim($command), true);
 
     if($result){
-        $img = file_get_contents(__DIR__."/../../tmp.png");
+        $img = file_get_contents(__DIR__."/../../result.png");
         $imgResult =  uploadImgur(base64_encode($img));
         $imgId = $imgResult['data']['id'];
         $response_format_text = [[

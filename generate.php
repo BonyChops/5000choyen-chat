@@ -256,7 +256,7 @@ function Generate_tex($text, $mc = false){
 
   file_put_contents(__DIR__."/tmp.tex", $header.$text.$footer);
   if (exec('cd '.__DIR__.' && timeout 20 ptex2pdf -ot -interaction="nonstopmode" -l tmp.tex 2> error.log',$array)) {
-    exec('cd '.__DIR__.' && pdftoppm -r 300 -l 1 -png '.__DIR__.'/tmp.pdf image && convert input '.__DIR__.'/image-1.png -trim '.__DIR__.'/tmp.png');
+    exec('cd '.__DIR__.' && pdftoppm -r 300 -l 1 -png '.__DIR__.'/tmp.pdf image && convert input '.__DIR__.'/image-1.png -trim '.__DIR__.'/result.png');
     foreach (glob(__DIR__.'/tmp*') as$val ) {
       unlink($val);
   }
