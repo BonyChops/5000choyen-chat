@@ -231,6 +231,7 @@ function Generate_tex($text, $mc = false){
   }
   %ここまでソースコードの表示に関する設定
   \pagestyle{empty} % すべてのページ番号を消去
+  \def\tightlist{\itemsep1pt\parskip0pt\parsep0pt}
   \usepackage{pdfpages}
   \usepackage{amssymb}
   \usepackage{amsmath}
@@ -242,7 +243,7 @@ function Generate_tex($text, $mc = false){
   if($mc){
     file_put_contents(__DIR__.'/tmp.md', trim($command));
     if(file_exists(__DIR__.'/tmp3.tex')) unlink(__DIR__.'/tmp3.tex');
-    exec('pandoc '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp3.tex',$array,$return);
+    exec('pandoc -r markdown-auto_identifiers -w latex '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp3.tex',$array,$return);
     if (!$return) {
       echo 'good';
     }else{
