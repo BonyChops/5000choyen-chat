@@ -240,8 +240,9 @@ function Generate_tex($text, $mc = false){
   ';
   $footer = '
   \end{document}';
+  $header_md = "\pagenumbering{gobble}\n\n";
   if($mc){
-    file_put_contents(__DIR__.'/tmp.md', trim($command));
+    file_put_contents(__DIR__.'/tmp.md', $header_md.trim($command));
     exec('timeout 10 pandoc '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp.pdf',$array,$return);
     unlink(__DIR__.'/tmp.md');
     if (!$return) {
