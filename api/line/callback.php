@@ -176,15 +176,24 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
 
 if(($comPos = strpos($message_text,"!tex")) !== FALSE){
     $command = substr($message_text, $comPos + 4);
-    Generate_tex(trim($command));
-    $img = file_get_contents(__DIR__."/../../tmp.png");
-    $imgResult =  uploadImgur(base64_encode($img));
-    $imgId = $imgResult['data']['id'];
-    $response_format_text = [[
-        "type"=> "image",
-        "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-        "previewImageUrl"=> "https://i.imgur.com/".$imgId."l.png"
-    ]];
+    $result = Generate_tex(trim($command));
+
+    if($result){
+        $img = file_get_contents(__DIR__."/../../tmp.png");
+        $imgResult =  uploadImgur(base64_encode($img));
+        $imgId = $imgResult['data']['id'];
+        $response_format_text = [[
+            "type"=> "image",
+            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
+            "previewImageUrl"=> "https://i.imgur.com/".$imgId."l.png"
+        ]];
+    }else{
+        $response_format_text = [[
+            "type"=> "text",
+            "text"=> "あれ？www\nTeXコマンドミスってますけど？wwwwwwwwwwwwwwwwwww"
+        ]];
+    }
+
     if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
     if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
     $result = sending_messages($accesstoken, $replyToken, $response_format_text);
