@@ -239,7 +239,7 @@ function Generate_tex($text){
   $footer = '
   \end{document}';
   file_put_contents(__DIR__."/tmp.tex", $header.$text.$footer);
-  exec('cd '.__DIR__.' && ptex2pdf -ot -interaction="nonstopmode" tmp.tex');
+  exec('cd '.__DIR__.' && ptex2pdf -ot -interaction="nonstopmode" -l tmp.tex');
   exec('cd '.__DIR__.' && pdftoppm -l 1 -png '.__DIR__.'/tmp.pdf image && convert input '.__DIR__.'/image-1.png -trim '.__DIR__.'/tmp.png');
 }
 
