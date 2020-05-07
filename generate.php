@@ -240,7 +240,7 @@ function Generate_tex($text, $mc = false){
   \end{document}';
   if($mc){
     file_put_contents(__DIR__.'/tmp.md', trim($text));
-    if (!exec('cd '.__DIR__.' && pandoc tmp.md -o tmp2.tex',$array)) {
+    if (!exec('cd '.__DIR__.' && pandoc tmp.md -o tmp2.tex 2> error.log',$array)) {
       file_put_contents('test.json', json_encode($array, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
       return FALSE;
     }
