@@ -243,7 +243,7 @@ function Generate_tex($text, $mc = false){
   if($mc){
     file_put_contents(__DIR__.'/tmp.md', trim($command));
     if(file_exists(__DIR__.'/tmp3.tex')) unlink(__DIR__.'/tmp3.tex');
-    exec('pandoc -r markdown-auto_identifiers -w latex '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp3.tex',$array,$return);
+    exec('timeout 10 pandoc -r markdown-auto_identifiers -w latex '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp3.tex',$array,$return);
     if (!$return) {
       echo 'good';
     }else{
@@ -259,7 +259,7 @@ function Generate_tex($text, $mc = false){
   }
   if(file_exists(__DIR__."/tmp.tex")) unlink(__DIR__."/tmp.tex");
   file_put_contents(__DIR__."/tmp.tex", $header.$command.$footer);
-  if (exec('cd '.__DIR__.' && timeout 20 ptex2pdf -ot -interaction="nonstopmode" -l tmp.tex 2> error.log',$array)) {
+  if (exec('cd '.__DIR__.' && timeout 10 ptex2pdf -ot -interaction="nonstopmode" -l tmp.tex 2> error.log',$array)) {
     exec('cd '.__DIR__.' && pdftoppm -r 300 -l 1 -png '.__DIR__.'/tmp.pdf image && convert input '.__DIR__.'/image-1.png -trim '.__DIR__.'/result.png');
     foreach (glob(__DIR__.'/tmp*') as$val ) {
       unlink($val);

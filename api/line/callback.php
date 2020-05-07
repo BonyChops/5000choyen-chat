@@ -201,7 +201,7 @@ if(($comPos = strpos($message_text,"!tex")) !== FALSE){
     exit;
 }
 
-if(($comPos = strpos($message_text,"!mc")) !== FALSE){
+if(($comPos = strpos($message_text,"!md")) !== FALSE){
     $command = substr($message_text, $comPos + 3);
     $result = Generate_tex(trim($command), true);
 
