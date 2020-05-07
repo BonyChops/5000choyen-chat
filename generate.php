@@ -240,7 +240,8 @@ function Generate_tex($text, $mc = false){
   \end{document}';
   if($mc){
     file_put_contents(__DIR__.'/tmp.md', trim($text));
-    if (exec('pandoc '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp2.tex 1> stdout.log 2>  '.__DIR__.'/error.log',$array) !== TRUE) {
+    exec('pandoc '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp2.tex',$array,$return);
+    if ($return !== FALSE) {
       if(file_exists(__DIR__.'/tmp2.tex')) unlink(__DIR__.'/tmp2.tex');
       return FALSE;
     }
