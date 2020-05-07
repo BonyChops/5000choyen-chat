@@ -1,0 +1,268 @@
+\documentclass[a4j, titlepage, dvipdfmx]{jarticle}
+\usepackage{float}
+\usepackage[dvipdfmx]{graphicx}
+%\usepackage{mediabb}
+\makeatletter
+%https://qiita.com/ta_b0_/items/2619d5927492edbb5b03
+\usepackage{listings,jlisting} %日本語のコメントアウトをする場合jlstlistingが必要
+%ここからソースコードの表示に関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
+%ここまでソースコードの表示に関する設定
+
+\if0
+---------------------------------こめこめこめこめこめこめこめこめこめこめこめ
+\renewcommand{\thefigure}{\arabic{figure}}
+\@addtoreset{figure}{section}
+\makeatother
+\makeatletter
+\renewcommand{\thetable}{\arabic{table}}
+\@addtoreset{table}{section}
+\makeatother
+\makeatletter
+\renewcommand{\theequation}{\arabic{equation}}
+\@addtoreset{equation}{section}
+\makeatother
+---------------------------------こめこめこめこめこめこめこめこめこめこめこめ
+\fi
+
+\usepackage{pdfpages}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{url}
+\title{電気回路II}
+
+\author{鈴木颯太\thanks{長野工業高等専門学校　電子情報工学科}}
+\date{令和2年5月6日}
+\begin{document}
+\maketitle
+\section*{10.2 【閉路電流法】}
+ありがとうございました。 \\
+教科書の図より，閉回路$S_a$,$S_b$の式をつくる.
+\begin{eqnarray}
+    S_a : I_a(Z_1+Z_2)+I_b(Z_2) &=& E\\
+    S_a : I_a(40-j10)-j10I_b &=& E
+\end{eqnarray}
+\begin{eqnarray}
+    S_b : I_a Z_2 + (Z_2 Z_3 Z_4) = 0\\
+    S_b : -j10 I_a  + (10+j10) = 0
+\end{eqnarray}
+
+よって，
+\[
+  \left[
+    \begin{array}{rr}
+      40-j10 & -j10  \\
+      -j10 & 10+j10
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{r}
+      I_a  \\
+      I_b
+    \end{array}
+  \right] =
+  \left[
+    \begin{array}{c}
+      400  \\
+      0 \\
+    \end{array}
+  \right]
+\]
+
+\begin{eqnarray}
+\Delta &=&
+\left|
+    \begin{array}{rr}
+    40-j10 & -j10  \\
+    -j10 & 10+j10  \\
+  \end{array}
+\right| \\
+&=& (400+j400-j100+100)-(-100) \\
+&=& 600+j300
+\end{eqnarray}
+
+\begin{eqnarray}
+    I_a &=& \frac{1}{\Delta}
+\left|
+    \begin{array}{rr}
+    100 & -j10  \\
+    0 & 10+j10  \\
+  \end{array}
+\right| \\
+&=& \frac{1000+j1000}{600+j300}\\
+&=& \frac{10+j10}{6+j3}\\
+&=& \frac{90+j30}{45}\\
+&=& 2+j \frac{2}{3} \\
+&=& \underline{2+0.667[A]}
+\end{eqnarray}
+
+\begin{eqnarray}
+    I_b &=& \frac{1}{\Delta}
+    \left|
+    \begin{array}{rr}
+        40-j10 & 100  \\
+        -j10 & 0  \\
+      \end{array}
+    \right| \\
+    &=& \frac{j1000}{600+j300} \\
+    &=& \frac{30+j60}{45} \\
+    &=& \frac{2}{3} + j \frac{4}{3} \\
+    &=& \underline{0.667+j1.333[A]}
+\end{eqnarray}
+よって，
+\begin{eqnarray}
+    I_1 &=& I_a = \underline{2+j0.667[A]} \\
+    I_2 &=& I_a+I_b= \underline{2.667+j2[A]} \\
+    I_3 &=& -I_b = \underline{-0.667 - j1.333[A]}
+\end{eqnarray}
+\newpage
+
+\section*{10.4 【閉路電流法】}
+教科書の図より，閉回路$S_a$,$S_b$,$S_c$の式をつくる.
+\begin{eqnarray}
+    S_a : I_a (j6+8)-8I_b=20\\
+\end{eqnarray}
+\begin{eqnarray}
+    S_b : -8 I_a+I_b(8+10+4)+4I_c&=&0\\
+    -8 I_a+22I_b+4I_c &=& 0\\
+\end{eqnarray}
+\begin{eqnarray}
+    S_c : -8I_b + (4-3j)I_c &=& j20
+\end{eqnarray}
+
+よって，
+\[
+  \left[
+    \begin{array}{rrr}
+      j6+8 & -8 & 0  \\
+      -8 & 22 & 4  \\
+      0 & 4 & 4-3j
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{rrr}
+      I_a  \\
+      I_b \\
+      I_c
+    \end{array}
+  \right] =
+  \left[
+    \begin{array}{c}
+      20  \\
+      0 \\
+      j20
+    \end{array}
+  \right]
+\]
+\begin{equation}
+    \Delta = 716 + j96
+\end{equation}
+
+\begin{eqnarray}
+    I = I_b &=& \frac{1}{\Delta}
+\left|
+    \begin{array}{ccc}
+    j6+8 & 20 & 0 \\
+    -8 & 0 & 4  \\
+    0 & j20 & 4-3j
+  \end{array}
+\right| \\
+&=& \frac{-(j80(j6+8))+(160(4-3j))}{716+j96}\\
+&=& \underline{1.33-j1.79[A]}
+\end{eqnarray}
+\newpage
+
+\section*{10.5 【オーウェンブリッジ】}
+教科書図10.10と照らし合わせて，$Z$の値を決める．
+\begin{eqnarray}
+    Z_1 &=& R_1 + j\omega L_1\\
+    Z_2 &=& R_2 \\
+    Z_3 &=& R_3 + \frac{1}{j\omega C_3} \\
+    Z_4 &=& \frac{1}{j\omega C_4}
+\end{eqnarray}
+以下の平衡条件である式を使って求める．
+\begin{equation}
+    Z_1Z_4 = Z_2Z_3
+\end{equation}
+\begin{eqnarray}
+    \frac{R_1}{j\omega C_4} + \frac{L_1}{C_4} &=& R_2R_3 + \frac{R_2}{j\omega C_3}\\
+    \frac{C_3R_1}{C_4}+ j\omega \frac{C_3L_1}{C_4} &=& j\omega C_3 R_2R_3+R_2\\
+    C_3 + j\omega C_3 L_1 &=& j\omega C_3 C_4 R_2 R_3 + C_4 R_2 \\
+\end{eqnarray}
+実部，虚部は等しいものとすると，
+\begin{eqnarray}
+    R_1 &=& \frac{C_4R_2}{C_3} = \underline{40[\Omega]}\\
+    L_1 &=& C_4R_2R_3 = \underline{2.0 \times 10^{-2} [H]}
+\end{eqnarray}
+\newpage
+
+\section*{10.6 【マクスウェルブリッジ】}
+教科書図10.10と照らし合わせて，$Z$の値を決める．
+\begin{eqnarray}
+    Z_1 &=& R_1 + j\omega L_1\\
+    Z_2 &=& R_2 \\
+    Z_3 &=& R_3  \\
+    Z_4 &=& \frac{1}{\frac{1}{4} + j\omega C_4}\\
+    &=& \frac{\frac{R_4}{1+R_4j\omega C_4}}{R_4 + \frac{1}{j\omega C_4}}
+\end{eqnarray}
+以下の平衡条件である式を使って求める．
+\begin{equation}
+    Z_1Z_4 = Z_2Z_3
+\end{equation}
+
+\begin{eqnarray}
+    \frac{\frac{R_4}{j\omega C_4}}{R_4+ \frac{1}{j\omega 4}}(R_1+j\omega L_1) &=& R_2R_3 \\
+    R_4(R_1+j\omega L_1) &=& R_2R_3(1+j\omega C_4R_4)
+\end{eqnarray}
+実部，虚部は等しいものとすると，
+\begin{eqnarray}
+    R_1 &=& \underline{\frac{R_2R_3}{R_4}}\\
+    L_1 &=& \underline{C_4R_2R_3}
+\end{eqnarray}
+\newpage
+
+\section*{10.7 【ウィーンブリッジ・各種端数の決定】}
+教科書図10.10と照らし合わせて，$Z$の値を決める．
+\begin{eqnarray}
+    Z_1 &=& R_1\\
+    Z_2 &=& R_2 \\
+    Z_3 &=& R_3 - j\frac{1}{\omega C_3}  \\
+    Z_4 &=& \frac{\frac{R_4}{j\omega C_4}}{R_4 + \frac{1}{j\omega C_4}}
+\end{eqnarray}
+
+以下の平衡条件である式を使って求める．
+\begin{equation}
+    Z_1Z_4 = Z_2Z_3
+\end{equation}
+
+\begin{eqnarray}
+    \frac{\frac{R_1R_4}{j\omega C_4}}{R_4 + \frac{1}{j\omega C_4}} &=& R_2R_3-j\frac{R_2}{\omega C_3} \\
+    j\omega R_1R_4C_3 &=& -\omega^2 C_3 C_4 R_2 R_3 - R_3 R_4 \times j \omega C_4 + 1 \\
+\end{eqnarray}
+
+実部，虚部は等しいものとすると，
+\begin{eqnarray}
+    \omega &=& \underline{\sqrt{1/(C_3 C_4 R_3 R_4)}}\\
+    R_1 &=& \underline{(C_3R_2R_3+C_4R_2R_4)/(C_3R_4)}
+\end{eqnarray}
+
+\section{レポートの下書き}
+以下レポートの手書きでの下書きである．(次ページから)
+\end{document}

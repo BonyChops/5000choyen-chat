@@ -201,6 +201,47 @@ function avicii($url){
 ];
 }
 
+function Generate_tex($text){
+  $header = '\documentclass[a4j, titlepage, dvipdfmx]{jarticle}
+  \usepackage{float}
+  \usepackage[dvipdfmx]{graphicx}
+  %\usepackage{mediabb}
+  \makeatletter
+  %https://qiita.com/ta_b0_/items/2619d5927492edbb5b03
+  \usepackage{listings,jlisting} %日本語のコメントアウトをする場合jlstlistingが必要
+  %ここからソースコードの表示に関する設定
+  \lstset{
+    basicstyle={\ttfamily},
+    identifierstyle={\small},
+    commentstyle={\smallitshape},
+    keywordstyle={\small\bfseries},
+    ndkeywordstyle={\small},
+    stringstyle={\small\ttfamily},
+    frame={tb},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    xrightmargin=0zw,
+    xleftmargin=3zw,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    numbersep=1zw,
+    lineskip=-0.5ex
+  }
+  %ここまでソースコードの表示に関する設定
+
+  \usepackage{pdfpages}
+  \usepackage{amssymb}
+  \usepackage{amsmath}
+  \usepackage{url}
+  \begin{document}
+  ';
+  $footer = '
+  \end{document}';
+  file_put_contents("tmp.tex", $header.$text.$footer);
+}
+
+
 function rgb2hex ( $rgb ) {
 	return "#" . implode( "", array_map( function( $value ) {
 		return substr( "0" . dechex( $value ), -2 ) ;
