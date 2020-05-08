@@ -28,13 +28,13 @@ function typing(channel) {
 }
 
 
-client.on('message', msg => {
+client.on('message', async msg => {
     console.log(msg.author.id);
     if((msg.content.indexOf('!tex') !== -1)||(msg.content.indexOf('!md') !== -1)){
         //console.log('kusa2');
         //msg.channel.startTyping();
-        typing(msg.channel);
-        msg.delete();
+        await typing(msg.channel);
+        await msg.delete();
         //console.log('kusa');
         if(msg.author.avatarURL() != null){
             var userIconURL = msg.author.avatarURL();
