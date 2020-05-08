@@ -30,14 +30,12 @@ function typing(channel) {
 
 client.on('message', msg => {
     console.log(msg.author.id);
-    if(msg.content.indexOf('!spc') !== -1){
+    if((msg.content.indexOf('!tex') !== -1)||(msg.content.indexOf('!md') !== -1)){
         //console.log('kusa2');
         //msg.channel.startTyping();
         typing(msg.channel);
         msg.delete();
         //console.log('kusa');
-        console.log(msg.author.username);
-        console.log(msg.author.avatarURL());
         if(msg.author.avatarURL() != null){
             var userIconURL = msg.author.avatarURL();
         }else{
@@ -45,7 +43,7 @@ client.on('message', msg => {
         }
         let member = msg.guild.member(msg.author);
         let nickname = member ? member.displayName : msg.author.username;
-        output = execSync('php '+__dirname+'/analyze_spc.php "'+msg.content+'" "'+nickname+'" "'+userIconURL+'"');
+        output = execSync('php '+__dirname+'/analyze_tex.php "'+msg.content+'"');
         console.log(output);
         const jsonObject = JSON.parse(fs.readFileSync(path.resolve(__dirname, './imgur_url.json'), 'utf8'));
         console.log(jsonObject.url);

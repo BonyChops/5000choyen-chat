@@ -3,29 +3,46 @@ require_once(__DIR__.'/../../generate.php');
 require_once(__DIR__.'/../imgur/upload.php');
 
 $message_text =  $argv[1];
-$userName =  $argv[2];
-$iconURL =  $argv[3];
 
 $comPos = 0;
-if(($comPos = strpos($message_text,"!spc")) !== FALSE){
-    $filepath = pathinfo($iconURL);
-    $iconURL = $filepath['dirname'].'/'.$filepath['filename'].'.png';
-    file_put_contents(__DIR__."/../../docs/userIcon.png",file_get_contents($iconURL));
-    sleep(0.5);
-    if(strpos($message_text,"/") !== FALSE){
-        $command = substr($message_text, $comPos + 4);
-        list($price,$comment) = explode('/',$command);
-        Generate_SPC($price, $userName, $comment);
+
+
+if(($comPos = strpos($message_text,"!tex")) !== FALSE){
+    $command = substr($message_text, $comPos + 4);
+    $result = Generate_tex(trim($command));
+
+    if($result){
+        $img = file_get_contents(__DIR__."/../../result.png");
+        $response_format_text = [returnImgurIds($img)];
     }else{
-        $command = substr($message_text, $comPos + 4);
-        if(is_numeric($command)){
-            Generate_SPC($command, $userName,"");
-        }else{
-            Generate_SPC(-1, $userName, trim($command));
-        }
+        $response_format_text = [[
+            "type"=> "text",
+            "text"=> "あれ？www\nTeXコマンドミスってますけど？wwwwwwwwwwwwwwwwwww"
+        ]];
     }
+
     if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
     if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
-    unlink(__DIR__."/../../docs/userIcon.png");
+    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    file_put_contents(__DIR__."/../../docs/result1234.json",$result);
+    exit;
+}
+
+if(($comPos = strpos($message_text,"!md")) !== FALSE){
+    $command = substr($message_text, $comPos + 3);
+    $result = Generate_tex(trim($command), true);
+
+    if($result){
+        $img = file_get_contents(__DIR__."/../../result.png");
+        $response_format_text = [returnImgurIds($img)];
+    }else{
+        $response_format_text = [[
+            "type"=> "text",
+            "text"=> "ふぇぇ...そんなMarkdownわかんないよお..."
+        ]];
+    }
+
+    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    file_put_contents(__DIR__."/../../docs/result1234.json",$result);
     exit;
 }
