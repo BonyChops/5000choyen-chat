@@ -228,10 +228,10 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
 
 if(($comPos = strpos($message_text,"!gnuplot")) !== FALSE){
     $command = substr($message_text, $comPos + 8);
-    $result = Generate_gnuplot($command);
+    $result = Generate_gnuplot(trim($command));
 
     if($result){
-        $img = file_get_contents(__DIR__."/../../result.png");
+        $img = file_get_contents(__DIR__."/../../result-gnuplot.png");
         $response_format_text = [returnImgurIds($img)];
     }else{
         $response_format_text = [[
