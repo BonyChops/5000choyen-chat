@@ -226,8 +226,8 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
     exit;
 }
 
-if(($comPos = strpos($message_text,"!md")) !== FALSE){
-    $command = substr($message_text, $comPos + 3);
+if(($comPos = strpos($message_text,"!gnuplot")) !== FALSE){
+    $command = substr($message_text, $comPos + 8);
     $result = Generate_tex($command);
 
     if($result){
