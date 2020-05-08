@@ -244,6 +244,7 @@ function Generate_tex($text, $mc = false){
   if($mc){
     file_put_contents(__DIR__.'/tmp.md', $header_md.trim($command));
     exec('timeout 15 pandoc '.__DIR__.'/tmp.md -o '.__DIR__.'/tmp.pdf --pdf-engine=lualatex -V documentclass=ltjarticle',$array,$return);
+    copy(__DIR__.'/tmp.pdf',__DIR__.'/check.pdf');
     unlink(__DIR__.'/tmp.md');
     if (!$return) {
       echo 'good';
