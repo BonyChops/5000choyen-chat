@@ -226,6 +226,24 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
     exit;
 }
 
+if(($comPos = strpos($message_text,"!md")) !== FALSE){
+    $command = substr($message_text, $comPos + 3);
+    $result = Generate_tex($command);
+
+    if($result){
+        $img = file_get_contents(__DIR__."/../../result.png");
+        $response_format_text = [returnImgurIds($img)];
+    }else{
+        $response_format_text = [[
+            "type"=> "text",
+            "text"=> "ふぇぇ...そんなMarkdownわかんないよお..."
+        ]];
+    }
+    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    file_put_contents(__DIR__."/../../docs/result1234.json",$result);
+    exit;
+}
+
 if(($comPos = strpos($message_text,"!avicii")) !== FALSE){
 
     $response_format_text = [[
