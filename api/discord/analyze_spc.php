@@ -23,7 +23,7 @@ if(($comPos = strpos($message_text,"!spc")) !== FALSE){
         }else{
             Generate_SPC(-1, $userName, trim($command));
         }
-        
+
     }
     if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
     if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
