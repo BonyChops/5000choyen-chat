@@ -39,7 +39,7 @@ client.on('message', async msg => {
     if((msg.content.indexOf('!tex') !== -1)||(msg.content.indexOf('!md') !== -1)){
         //console.log('kusa2');
         //msg.channel.startTyping();
-        await typing(msg.channel);
+        typing(msg.channel);
         await msg.delete();
         //console.log('kusa');
         if(msg.author.avatarURL() != null){
