@@ -228,7 +228,7 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
 
 if(($comPos = strpos($message_text,"!gnuplot")) !== FALSE){
     $command = substr($message_text, $comPos + 8);
-    $result = Generate_tex($command);
+    $result = Generate_gnuplot($command);
 
     if($result){
         $img = file_get_contents(__DIR__."/../../result.png");
