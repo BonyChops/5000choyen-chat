@@ -50,10 +50,14 @@ client.on('message', async msg => {
         let member = msg.guild.member(msg.author);
         let nickname = member ? member.displayName : msg.author.username;
         output = await execShellCommand('php '+__dirname+'/analyze_tex.php "'+msg.content+'"');
-        console.log(output);
-        //sent_mes =  msg.reply('',{files: {jsonObject.url}});
-        const attachment = new MessageAttachment(path.resolve(__dirname, '../../result.png'));
-        msg.reply(attachment);
+        try {
+            fs.statSync(path.resolve(__dirname, '../../result.png'));
+            const attachment = new MessageAttachment(path.resolve(__dirname, '../../result.png'));
+            msg.reply(attachment);
+            } catch (error) {
+            msg.reply('無理でした');
+          }
+
         msg.channel.stopTyping();
     }
 });

@@ -14,10 +14,7 @@ if(($comPos = strpos($message_text,"!tex")) !== FALSE){
     if($result){
         echo "good";
     }else{
-        $response_format_text = [[
-            "type"=> "text",
-            "text"=> "あれ？www\nTeXコマンドミスってますけど？wwwwwwwwwwwwwwwwwww"
-        ]];
+        if(file_exists(__DIR__.'/../../result.png')) unlink(__DIR__.'/../../result.png');
     }
     exit;
 }
@@ -29,10 +26,7 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
     if($result){
         echo "good";
     }else{
-        $response_format_text = [[
-            "type"=> "text",
-            "text"=> "ふぇぇ...そんなMarkdownわかんないよお..."
-        ]];
+        if(file_exists(__DIR__.'/../../result.png')) unlink(__DIR__.'/../../result.png');
     }
     exit;
 }
