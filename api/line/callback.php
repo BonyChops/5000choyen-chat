@@ -236,7 +236,7 @@ if(($comPos = strpos($message_text,"!gnuplot")) !== FALSE){
     }else{
         $response_format_text = [[
             "type"=> "text",
-            "text"=> "ふぇぇ...そんなMarkdownわかんないよお..."
+            "text"=> "gnuplot「...」\n(へんじがない、ただのしかばねのようだ)"
         ]];
     }
     $result = sending_messages($accesstoken, $replyToken, $response_format_text);
