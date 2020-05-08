@@ -49,7 +49,7 @@ client.on('message', async msg => {
         }
         let member = msg.guild.member(msg.author);
         let nickname = member ? member.displayName : msg.author.username;
-        output = await execShellCommand('php '+__dirname+'/analyze_tex.php "'+msg.content+'"');
+        output = await execShellCommand('php '+__dirname+'/analyze_tex.php "'+msg.cleanContent+'"');
         try {
             fs.statSync(path.resolve(__dirname, '../../result.png'));
             const attachment = new MessageAttachment(path.resolve(__dirname, '../../result.png'));
