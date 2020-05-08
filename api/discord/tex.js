@@ -33,7 +33,7 @@ client.on('message', msg => {
     if(msg.content.indexOf('!spc') !== -1){
         //console.log('kusa2');
         //msg.channel.startTyping();
-        await typing(mes.channel);
+        typing(mes.channel);
         //console.log('kusa');
         console.log(msg.author.username);
         console.log(msg.author.avatarURL());
