@@ -34,6 +34,7 @@ client.on('message', msg => {
         //console.log('kusa2');
         //msg.channel.startTyping();
         typing(msg.channel);
+        msg.delete();
         //console.log('kusa');
         console.log(msg.author.username);
         console.log(msg.author.avatarURL());
@@ -51,7 +52,6 @@ client.on('message', msg => {
         //sent_mes =  msg.reply('',{files: {jsonObject.url}});
         const attachment = new MessageAttachment(path.resolve(__dirname, '../../result.png'));
         msg.reply(attachment);
-        msg.delete();
         msg.channel.stopTyping();
     }
 });
