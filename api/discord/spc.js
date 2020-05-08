@@ -21,7 +21,7 @@ const execWait = (cmd) => {
 }
 
 client.on('message', msg => {
-    console.log(message.author.id);
+    console.log(msg.author.id);
     if(msg.content.indexOf('!spc') !== -1){
         //console.log('kusa2');
         msg.channel.startTyping();
