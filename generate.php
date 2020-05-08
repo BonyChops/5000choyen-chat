@@ -279,10 +279,10 @@ set output "result-gnuplot.png"
 plot "tmp.dat" with lines notitle';
   file_put_contents(__DIR__."/tmp.gnuplot", $settings);
   $result = exec('cd '.__DIR__.' && timeout 10  gnuplot "tmp.gnuplot"',$array,$result);
-  if (!$result) {
-    foreach (glob(__DIR__.'/tmp*') as$val ) {
-      unlink($val);
-    }
+  foreach (glob(__DIR__.'/tmp*') as$val ) {
+    unlink($val);
+  }
+  if ((!$result)&&(file_get_contents('result-gnuplot.png') !== "")) {
     return TRUE;
   }else{
     return FALSE;
