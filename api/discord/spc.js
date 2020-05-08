@@ -45,7 +45,7 @@ client.on('message', msg => {
         msg.delete();
         msg.channel.stopTyping();
     }
-/*     if(msg.author.id == ''){
+     if(msg.author.id == '708146987756814447'){
         //console.log('kusa2');
         msg.channel.startTyping();
         //console.log('kusa');
@@ -58,7 +58,7 @@ client.on('message', msg => {
         }
         let member = msg.guild.member(msg.author);
         let nickname = member ? member.displayName : msg.author.username;
-        output = execSync('php '+__dirname+'/analyze_spc.php "'+msg.content+'" "'+nickname+'" "'+userIconURL+'"');
+        output = execSync('php '+__dirname+'/analyze_spc.php "!spc '+msg.content+'" "'+nickname+'" "'+userIconURL+'"');
         console.log(output);
         const jsonObject = JSON.parse(fs.readFileSync(path.resolve(__dirname, './imgur_url.json'), 'utf8'));
         console.log(jsonObject.url);
@@ -67,7 +67,7 @@ client.on('message', msg => {
         msg.reply(attachment);
         msg.delete();
         msg.channel.stopTyping();
-    } */
+    }
 });
 
 process.on('exit', function (code) {
