@@ -43,7 +43,7 @@ client.on('message', async msg => {
         }
         let member = msg.guild.member(msg.author);
         let nickname = member ? member.displayName : msg.author.username;
-        output = execSync('php '+__dirname+'/analyze_tex.php "'+msg.content+'"');
+        output = await execSync('php '+__dirname+'/analyze_tex.php "'+msg.content+'"');
         console.log(output);
         //sent_mes =  msg.reply('',{files: {jsonObject.url}});
         const attachment = new MessageAttachment(path.resolve(__dirname, '../../result.png'));
