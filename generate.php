@@ -270,6 +270,24 @@ function generateImg(){
   unlink(__DIR__.'/image-1.png');
 }
 
+function Generate_gnuplot($text){
+  $command = $text;
+  file_put_contents(__DIR__."/tmp.dat", $command);
+  $settings = 'set terminal png
+set output "result.png"
+plot "tmp.dat" with lines';
+  file_put_contents(__DIR__."/tmp.gnuplot", $settings);
+
+  if (exec('cd '.__DIR__.' && timeout 10  gnuplot "tmp.gnuplot"',$array)) {
+    foreach (glob(__DIR__.'/tmp*') as$val ) {
+      unlink($val);
+    }
+    return TRUE;
+  }else{
+    return FALSE;
+  }
+}
+
 function rgb2hex ( $rgb ) {
 	return "#" . implode( "", array_map( function( $value ) {
 		return substr( "0" . dechex( $value ), -2 ) ;

@@ -125,13 +125,7 @@ if(($comPos = strpos($message_text,"!spc2")) !== FALSE){
 
     }
     $img = file_get_contents(__DIR__."/../../result.png");
-    $imgResult =  uploadImgur(base64_encode($img));
-    $imgId = $imgResult['data']['id'];
-    $response_format_text = [[
-        "type"=> "image",
-        "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-        "previewImageUrl"=> "https://i.imgur.com/".$imgId."l.png"
-    ]];
+    $response_format_text = [returnImgurIds($img)];
     if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
     if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
     $result = sending_messages($accesstoken, $replyToken, $response_format_text);
@@ -180,13 +174,7 @@ if(($comPos = strpos($message_text,"!tex")) !== FALSE){
 
     if($result){
         $img = file_get_contents(__DIR__."/../../result.png");
-        $imgResult =  uploadImgur(base64_encode($img));
-        $imgId = $imgResult['data']['id'];
-        $response_format_text = [[
-            "type"=> "image",
-            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-            "previewImageUrl"=> "https://i.imgur.com/".$imgId."l.png"
-        ]];
+        $response_format_text = [returnImgurIds($img)];
     }else{
         $response_format_text = [[
             "type"=> "text",
@@ -207,13 +195,7 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
 
     if($result){
         $img = file_get_contents(__DIR__."/../../result.png");
-        $imgResult =  uploadImgur(base64_encode($img));
-        $imgId = $imgResult['data']['id'];
-        $response_format_text = [[
-            "type"=> "image",
-            "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
-            "previewImageUrl"=> "https://i.imgur.com/".$imgId."l.png"
-        ]];
+        $response_format_text = [returnImgurIds($img)];
     }else{
         $response_format_text = [[
             "type"=> "text",
@@ -221,8 +203,24 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
         ]];
     }
 
-    if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
-    if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
+    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
+    file_put_contents(__DIR__."/../../docs/result1234.json",$result);
+    exit;
+}
+
+if(($comPos = strpos($message_text,"!md")) !== FALSE){
+    $command = substr($message_text, $comPos + 3);
+    $result = Generate_tex(trim($command), true);
+
+    if($result){
+        $img = file_get_contents(__DIR__."/../../result.png");
+        $response_format_text = [returnImgurIds($img)];
+    }else{
+        $response_format_text = [[
+            "type"=> "text",
+            "text"=> "ふぇぇ...そんなMarkdownわかんないよお..."
+        ]];
+    }
     $result = sending_messages($accesstoken, $replyToken, $response_format_text);
     file_put_contents(__DIR__."/../../docs/result1234.json",$result);
     exit;
@@ -285,7 +283,15 @@ if(($sourceType == "group")||($sourceType == "room")){
 
 //どれにも該当しない場合
 
-
+function returnImgurIds($img){
+    $imgResult =  uploadImgur(base64_encode($img));
+    $imgId = $imgResult['data']['id'];
+    return [
+        "type"=> "image",
+        "originalContentUrl"=> "https://i.imgur.com/".$imgId.".png",
+        "previewImageUrl"=> "https://i.imgur.com/".$imgId."l.png"
+    ];
+}
 
 //echo $result;
 function sending_messages($accessToken, $replyToken, $response_format_text){
