@@ -12,8 +12,7 @@ if(($comPos = strpos($message_text,"!tex")) !== FALSE){
     $result = Generate_tex(trim($command));
 
     if($result){
-        $img = file_get_contents(__DIR__."/../../result.png");
-        $response_format_text = [returnImgurIds($img)];
+        echo "good";
     }else{
         $response_format_text = [[
             "type"=> "text",
@@ -28,8 +27,7 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
     $result = Generate_tex(trim($command), true);
 
     if($result){
-        $img = file_get_contents(__DIR__."/../../result.png");
-        $response_format_text = [returnImgurIds($img)];
+        echo "good";
     }else{
         $response_format_text = [[
             "type"=> "text",
