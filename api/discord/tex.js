@@ -68,4 +68,4 @@ process.on('SIGINT', function() {
 });
 const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../config.json'), 'utf8'));
 console.log(config.discord.token);
-client.login(config.discord.spc.token); // botログイン
+client.login(config.discord.tex.token); // botログイン
