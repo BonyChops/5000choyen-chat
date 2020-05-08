@@ -275,7 +275,7 @@ function Generate_gnuplot($text){
   file_put_contents(__DIR__."/tmp.dat", $command);
   $settings = 'set terminal png
 set output "result-gnuplot.png"
-plot "tmp.dat" with lines';
+plot "tmp.dat" with lines notitle';
   file_put_contents(__DIR__."/tmp.gnuplot", $settings);
   $result = exec('cd '.__DIR__.' && timeout 10  gnuplot "tmp.gnuplot"',$array,$result);
   if (!$result) {
