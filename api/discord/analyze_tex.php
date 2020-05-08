@@ -20,11 +20,6 @@ if(($comPos = strpos($message_text,"!tex")) !== FALSE){
             "text"=> "あれ？www\nTeXコマンドミスってますけど？wwwwwwwwwwwwwwwwwww"
         ]];
     }
-
-    if (isset($json_object->{"events"}[0]->{"source"}->{"groupId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"groupId"};
-    if (isset($json_object->{"events"}[0]->{"source"}->{"roomId"})) $userId =  $json_object->{"events"}[0]->{"source"}->{"roomId"};
-    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
-    file_put_contents(__DIR__."/../../docs/result1234.json",$result);
     exit;
 }
 
@@ -41,8 +36,5 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
             "text"=> "ふぇぇ...そんなMarkdownわかんないよお..."
         ]];
     }
-
-    $result = sending_messages($accesstoken, $replyToken, $response_format_text);
-    file_put_contents(__DIR__."/../../docs/result1234.json",$result);
     exit;
 }
