@@ -1,6 +1,9 @@
 const {Client, MessageAttachment} = require('discord.js');
 const client = new Client();
-const { exec, execSync } = require('child_process')
+//const { exec, execSync } = require('child_process')
+const util = require('util');
+const childProcess = require('child_process');
+const exec = util.promisify(childProcess.exec);
 //const jsonObject = JSON.parse(fs.readFileSync(__dirname+'/../input.json', 'utf8'));
 const path = require('path');
 const fs = require("fs");
@@ -43,7 +46,7 @@ client.on('message', async msg => {
         }
         let member = msg.guild.member(msg.author);
         let nickname = member ? member.displayName : msg.author.username;
-        output = await execSync('php '+__dirname+'/analyze_tex.php "'+msg.content+'"');
+        output = await exec('php '+__dirname+'/analyze_tex.php "'+msg.content+'"');
         console.log(output);
         //sent_mes =  msg.reply('',{files: {jsonObject.url}});
         const attachment = new MessageAttachment(path.resolve(__dirname, '../../result.png'));
