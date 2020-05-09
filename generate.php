@@ -282,7 +282,7 @@ plot "tmp.dat" with lines notitle';
   foreach (glob(__DIR__.'/tmp*') as$val ) {
     unlink($val);
   }
-  if ((!$result)&&(file_get_contents('result-gnuplot.png') != file_get_contents('null.png'))) {
+  if ((!$result)&&(file_get_contents('result-gnuplot.png') != "")) {
     return TRUE;
   }else{
     return FALSE;
