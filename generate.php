@@ -235,6 +235,7 @@ function Generate_tex($text, $mc = false){
   \usepackage{pdfpages}
   \usepackage{amssymb}
   \usepackage{amsmath}
+  \usepackage{okumacro}
   \usepackage{url}
   \begin{document}
   ';
