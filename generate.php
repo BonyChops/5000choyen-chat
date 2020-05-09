@@ -278,7 +278,7 @@ function Generate_gnuplot($text){
 set output "result-gnuplot.png"
 plot "tmp.dat" with lines notitle';
   file_put_contents(__DIR__."/tmp.gnuplot", $settings);
-  $result = exec('cd '.__DIR__.' && timeout 10  gnuplot "tmp.gnuplot"',$array,$result);
+  exec('cd '.__DIR__.' && timeout 10  gnuplot "tmp.gnuplot"',$array,$result);
   foreach (glob(__DIR__.'/tmp*') as$val ) {
     unlink($val);
   }
