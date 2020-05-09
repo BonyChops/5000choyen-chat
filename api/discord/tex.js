@@ -40,7 +40,12 @@ client.on('message', async msg => {
         //console.log('kusa2');
         //msg.channel.startTyping();
         typing(msg.channel);
-        await msg.delete();
+        try {
+            await msg.delete();
+        } catch (error) {
+            console.log("No right to delete message!");
+        }
+
         //console.log('kusa');
         if(msg.author.avatarURL() != null){
             var userIconURL = msg.author.avatarURL();
