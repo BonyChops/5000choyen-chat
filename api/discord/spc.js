@@ -34,7 +34,11 @@ client.on('message', msg => {
         //console.log('kusa2');
         //msg.channel.startTyping();
         typing(msg.channel);
-        msg.delete();
+        try{
+            msg.delete();
+        }catch(e){
+            console.log("草");
+        }
         //console.log('kusa');
         console.log(msg.author.username);
         console.log(msg.author.avatarURL());
