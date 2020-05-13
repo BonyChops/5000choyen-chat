@@ -210,7 +210,7 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
 
 
 if(($comPos = strpos($message_text,"!gnuplot")) !== FALSE){
-    if(strpos($message_text,"!gnuplot-r")){
+    if(strpos($message_text,"!gnuplot-r") !== FALSE){
         $command = substr($message_text, $comPos + 8 + 2);
     }else{
         $command = substr($message_text, $comPos + 8);
