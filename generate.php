@@ -278,7 +278,7 @@ function Generate_gnuplot($text, $sameRate = false){
   $settings = 'set terminal png
 set output "result-gnuplot.png"
 plot "tmp.dat" with lines notitle';
-if($sameRate) $settings."\nset size ratio -1";
+if($sameRate) $settings = $settings."\nset size ratio -1";
   file_put_contents(__DIR__."/tmp.gnuplot", $settings);
   exec('cd '.__DIR__.' && timeout 10  gnuplot "tmp.gnuplot"',$array,$result);
   foreach (glob(__DIR__.'/tmp*') as$val ) {
