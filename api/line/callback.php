@@ -210,7 +210,12 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
 
 
 if(($comPos = strpos($message_text,"!gnuplot")) !== FALSE){
-    $command = substr($message_text, $comPos + 8);
+    if(strpos($message_text,"!gnuplot-r")){
+        $command = substr($message_text, $comPos + 8 + 2);
+    }else{
+        $command = substr($message_text, $comPos + 8);
+    }
+
     $result = Generate_gnuplot(trim($command));
 
     if($result){
