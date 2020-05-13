@@ -212,11 +212,13 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
 if(($comPos = strpos($message_text,"!gnuplot")) !== FALSE){
     if(strpos($message_text,"!gnuplot-r") !== FALSE){
         $command = substr($message_text, $comPos + 8 + 2);
+        $sameRate = true;
     }else{
         $command = substr($message_text, $comPos + 8);
+        $sameRate = false;
     }
 
-    $result = Generate_gnuplot(trim($command));
+    $result = Generate_gnuplot(trim($command), $sameRate);
 
     if($result){
         $img = file_get_contents(__DIR__."/../../result-gnuplot.png");
