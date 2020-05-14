@@ -231,10 +231,10 @@ if(($comPos = strpos($message_text,"!gnuplot")) !== FALSE){
         if(!$sendLink){
             $response_format_text = [returnImgurIds($img)];
         }else{
-            $response_format_text = [
+            $response_format_text = [[
                 "type" => "text",
                 "text" => returnImgurIds($img)["originalContentUrl"]
-            ];
+            ]];
         }
     }else{
         $response_format_text = [[
