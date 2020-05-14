@@ -210,6 +210,12 @@ if(($comPos = strpos($message_text,"!md")) !== FALSE){
 
 
 if(($comPos = strpos($message_text,"!gnuplot")) !== FALSE){
+    if(strpos($message_text, "-img")){
+        $sendLink = true;
+        $comPos += 4;
+    }else{
+        $sendLink =false;
+    }
     if(strpos($message_text,"!gnuplot-r") !== FALSE){
         $command = substr($message_text, $comPos + 8 + 2);
         $sameRate = true;
@@ -222,7 +228,14 @@ if(($comPos = strpos($message_text,"!gnuplot")) !== FALSE){
 
     if($result){
         $img = file_get_contents(__DIR__."/../../result-gnuplot.png");
-        $response_format_text = [returnImgurIds($img)];
+        if(!$sendLink){
+            $response_format_text = [returnImgurIds($img)];
+        }else{
+            $response_format_text = [
+                "type" => "text",
+                "text" => returnImgurIds($img)["originalContentUrl"]
+            ];
+        }
     }else{
         $response_format_text = [[
             "type"=> "text",
